@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新聞詳情 - HKT 內網</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .news-detail {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .news-detail h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            line-height: 1.3;
+        }
+        
+        .news-meta {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ecf0f1;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .news-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .news-content {
+            line-height: 1.8;
+            color: #2c3e50;
+        }
+        
+        .news-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+        
+        .news-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #667eea;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        
+        .back-button:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .share-buttons {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #ecf0f1;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .share-facebook {
+            background: #3b5998;
+            color: white;
+        }
+        
+        .share-twitter {
+            background: #1da1f2;
+            color: white;
+        }
+        
+        .share-linkedin {
+            background: #0077b5;
+            color: white;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">HKT 內網</h1>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="index.html#news">新聞</a></li>
+                    <li><a href="index.html#about">關於</a></li>
+                    <li><a href="index.html#contact">聯絡</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="news-detail">
+            <a href="index.html" class="back-button">
+                ← 返回新聞列表
+            </a>
+            
+            <h1>HKT 內網系統正式上線 - 中國風設計引領企業數位化新潮流</h1>
+            
+            <div class="news-meta">
+                <span>📅 發布日期：2024年9月26日</span>
+                <span>👤 作者：HKT 技術團隊</span>
+                <span>🏷️ 分類：企業新聞</span>
+                <span>👁️ 閱讀次數：1,234</span>
+            </div>
+            
+            <div class="news-content">
+                <p>經過數月的精心開發與測試，HKT 內網系統今日正式上線。這套採用中國風設計理念的企業內網平台，不僅在視覺設計上融入了傳統中華文化元素，更在功能性和用戶體驗方面達到了業界領先水準。</p>
+                
+                <p>系統採用響應式設計，支援多種設備訪問，無論是桌面電腦、平板還是手機，都能提供流暢的使用體驗。中國風的設計元素包括傳統色彩搭配、書法字體風格以及古典圖案裝飾，讓企業內網不僅實用，更具文化內涵。</p>
+                
+                <img src="mission_bg.png" alt="HKT 內網系統截圖" style="width: 100%; max-width: 600px;">
+                
+                <p>技術架構方面，系統採用現代化的前端技術棧，包括 HTML5、CSS3 和 JavaScript ES6+，確保了良好的性能和兼容性。後端服務採用微服務架構，支援高併發訪問和水平擴展。</p>
+                
+                <p>安全性是企業內網的核心考量。系統實施了多層安全防護機制，包括用戶身份認證、權限管理、數據加密傳輸等，確保企業數據的安全性和隱私保護。</p>
+                
+                <p>未來，我們將持續優化系統功能，增加更多智能化特性，如 AI 驅動的內容推薦、智能搜索、個性化儀表板等，為用戶提供更加便捷和高效的工作體驗。</p>
+                
+                <p>HKT 內網系統的上線標誌著我們在企業數位化轉型道路上邁出了重要一步。我們相信，這套融合了傳統文化與現代科技的系統，將為企業員工帶來全新的工作體驗，提升工作效率和滿意度。</p>
+            </div>
+            
+            <div class="share-buttons">
+                <button class="share-btn share-facebook" onclick="shareToFacebook()">
+                    📘 分享到 Facebook
+                </button>
+                <button class="share-btn share-twitter" onclick="shareToTwitter()">
+                    🐦 分享到 Twitter
+                </button>
+                <button class="share-btn share-linkedin" onclick="shareToLinkedIn()">
+                    💼 分享到 LinkedIn
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 HKT 內網. 版權所有.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // 分享功能
+        function shareToFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${title}`, '_blank', 'width=600,height=400');
+        }
+        
+        function shareToTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${title}`, '_blank', 'width=600,height=400');
+        }
+        
+        function shareToLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+        }
+        
+        // 閱讀時間計算
+        function calculateReadingTime() {
+            const content = document.querySelector('.news-content');
+            const text = content.textContent;
+            const wordsPerMinute = 200; // 平均閱讀速度
+            const wordCount = text.split(/\s+/).length;
+            const readingTime = Math.ceil(wordCount / wordsPerMinute);
+            
+            const readingTimeElement = document.createElement('span');
+            readingTimeElement.innerHTML = `⏱️ 預估閱讀時間：${readingTime} 分鐘`;
+            readingTimeElement.style.color = '#7f8c8d';
+            readingTimeElement.style.fontSize = '0.9rem';
+            
+            document.querySelector('.news-meta').appendChild(readingTimeElement);
+        }
+        
+        // 頁面載入完成後執行
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateReadingTime();
+            
+            // 添加滾動到頂部按鈕
+            const scrollToTopBtn = document.createElement('button');
+            scrollToTopBtn.innerHTML = '↑';
+            scrollToTopBtn.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: none;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                transition: all 0.3s ease;
+                z-index: 1000;
+                display: none;
+            `;
+            
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.style.display = 'block';
+                } else {
+                    scrollToTopBtn.style.display = 'none';
+                }
+            });
+            
+            document.body.appendChild(scrollToTopBtn);
+        });
+    </script>
+</body>
+</html>
