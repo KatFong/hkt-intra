@@ -784,3 +784,4 @@ function showSliderFallback() {
         sliderDots.innerHTML = '';
     }
 }
+

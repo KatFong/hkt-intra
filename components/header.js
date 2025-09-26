@@ -22,7 +22,7 @@ class HeaderComponent {
                         </a>
                     </div>
                     <nav class="main-nav">
-                        <a href="#" class="nav-link">Apps</a>
+                        <a href="#" class="nav-link">News</a>
                         <div class="nav-dropdown">
                             <a href="#" class="nav-link dropdown-toggle ${this.activePage === 'departments' ? 'active' : ''}">Departments</a>
                             <div class="megamenu">
