@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Details - HKT Intranet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 頁面載入動畫 -->
+    <div id="page-loader" class="page-loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Loading department details...</p>
+        </div>
+    </div>
+
+    <!-- 頁面容器 -->
+    <div class="page-container">
+        <!-- Header Container -->
+        <div id="header-container"></div>
+
+        <!-- 主要內容區域 -->
+        <main class="main-content">
+            <div class="department-detail-container">
+                <!-- 部門標題區域 -->
+                <div class="department-header">
+                    <div class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <i class="fas fa-chevron-right"></i>
+                        <span id="breadcrumb-dept">Department Details</span>
+                    </div>
+                    <h1 id="department-title" class="department-title">Loading...</h1>
+                </div>
+
+                <!-- 部門內容區域 -->
+                <div class="department-content">
+                    <!-- 左側側邊菜單 -->
+                    <div class="content-left">
+                        <!-- 統一的部門菜單 -->
+                        <section class="department-sidebar">
+                            <h3 class="sidebar-title">
+                                <i class="fas fa-bars"></i>
+                                Department Menu
+                            </h3>
+                            <nav class="sidebar-menu">
+                                <ul class="menu-list">
+                                    <li class="menu-item active">
+                                        <a href="#description" class="menu-link">
+                                            <i class="fas fa-info-circle"></i>
+                                            <span>Description</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="#organization" class="menu-link">
+                                            <i class="fas fa-sitemap"></i>
+                                            <span>Organization</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="#contact" class="menu-link">
+                                            <i class="fas fa-phone"></i>
+                                            <span>Contact</span>
+                                        </a>
+                                    </li>
+                                    
+                                    <!-- 動態載入的連結 -->
+                                    <li class="menu-item" id="quick-links-item" style="display: none;">
+                                        <a href="#" class="menu-link" id="quick-links">
+                                            <i class="fas fa-globe"></i>
+                                            <span>Official Website</span>
+                                        </a>
+                                    </li>
+                                    
+                                    <!-- 動態載入的相關連結 -->
+                                    <div id="related-links-container"></div>
+                                    
+                                </ul>
+                            </nav>
+                        </section>
+
+                    </div>
+
+                    <!-- 右側主要內容 -->
+                    <div class="content-right">
+                        <!-- 部門描述 -->
+                        <section id="description" class="info-section">
+                            <h2 class="section-title">
+                                <i class="fas fa-info-circle"></i>
+                                Department Description
+                            </h2>
+                            <div id="department-description" class="section-content">
+                                <div class="loading-placeholder">
+                                    <div class="loading-line"></div>
+                                    <div class="loading-line"></div>
+                                    <div class="loading-line short"></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- 組織架構 -->
+                        <section id="organization" class="info-section">
+                            <h2 class="section-title">
+                                <i class="fas fa-sitemap"></i>
+                                Organization Chart
+                            </h2>
+                            <div id="organization-chart" class="section-content">
+                                <div class="loading-placeholder">
+                                    <div class="loading-line"></div>
+                                    <div class="loading-line short"></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- 聯絡資訊 -->
+                        <section id="contact" class="info-section">
+                            <h2 class="section-title">
+                                <i class="fas fa-phone"></i>
+                                Contact Information
+                            </h2>
+                            <div id="contact-info" class="section-content">
+                                <div class="loading-placeholder">
+                                    <div class="loading-line"></div>
+                                    <div class="loading-line short"></div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- 錯誤提示模態框 -->
+    <div id="error-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Loading Error</h3>
+                <button class="modal-close" onclick="closeErrorModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="error-message">An error occurred while loading department details. Please try again later.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeErrorModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 載入組件 -->
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/app.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // 部門詳情頁面專用 JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Department detail page loaded');
+            
+            // 初始化應用組件
+            window.app = new AppComponents();
+            window.app.updateActivePage('departments');
+            
+            // 初始化側邊菜單
+            initSidebarMenu();
+            
+            // 從 URL 參數獲取部門 ID
+            const urlParams = new URLSearchParams(window.location.search);
+            const departmentId = urlParams.get('id');
+            
+            if (departmentId) {
+                loadDepartmentDetail(departmentId);
+            } else {
+                showError('Department ID not specified');
+            }
+        });
+
+        // 初始化側邊菜單
+        function initSidebarMenu() {
+            const menuLinks = document.querySelectorAll('.menu-link');
+            
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有活躍狀態
+                    document.querySelectorAll('.menu-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // 添加活躍狀態到當前項目
+                    this.closest('.menu-item').classList.add('active');
+                    
+                    // 滾動到對應的區塊
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // 載入部門詳情
+        async function loadDepartmentDetail(departmentId) {
+            try {
+                showPageLoader();
+                
+                const response = await fetch('http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/departments');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const departments = await response.json();
+                const department = departments.find(dept => dept.id === departmentId);
+                
+                if (!department) {
+                    throw new Error('Department not found');
+                }
+                
+                displayDepartmentDetail(department);
+                hidePageLoader();
+                
+            } catch (error) {
+                console.error('Failed to load department details:', error);
+                hidePageLoader();
+                showError('Failed to load department details: ' + error.message);
+            }
+        }
+
+        // 顯示部門詳情
+        function displayDepartmentDetail(department) {
+            // 更新頁面標題
+            document.title = `${department.department_name} - HKT Intranet`;
+            
+            // 更新麵包屑
+            document.getElementById('breadcrumb-dept').textContent = department.department_name;
+            
+            // 更新部門標題
+            document.getElementById('department-title').textContent = department.department_name;
+            
+            // 更新部門描述
+            const descriptionElement = document.getElementById('department-description');
+            if (department.department_description) {
+                descriptionElement.innerHTML = department.department_description;
+            } else {
+                descriptionElement.innerHTML = '<p class="no-content">No department description available</p>';
+            }
+            
+            // 更新組織架構
+            const orgChartElement = document.getElementById('organization-chart');
+            if (department.organization_chart) {
+                orgChartElement.innerHTML = department.organization_chart;
+            } else {
+                orgChartElement.innerHTML = '<p class="no-content">No organization chart available</p>';
+            }
+            
+            // 更新聯絡資訊
+            const contactElement = document.getElementById('contact-info');
+            if (department.contact) {
+                contactElement.innerHTML = department.contact;
+            } else {
+                contactElement.innerHTML = '<p class="no-content">No contact information available</p>';
+            }
+            
+            // 動態添加快速連結到菜單
+            const quickLinksItem = document.getElementById('quick-links-item');
+            if (department.department_link) {
+                quickLinksItem.style.display = 'block';
+                const quickLinksElement = document.getElementById('quick-links');
+                quickLinksElement.href = department.department_link;
+                quickLinksElement.target = '_blank';
+            }
+            
+            // 動態添加相關連結到菜單
+            const relatedLinksContainer = document.getElementById('related-links-container');
+            if (department.other_intranet_links) {
+                // 解析 HTML 並提取連結
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = department.other_intranet_links;
+                const links = tempDiv.querySelectorAll('a');
+                
+                if (links.length > 0) {
+                    relatedLinksContainer.innerHTML = Array.from(links).map(link => `
+                        <li class="menu-item">
+                            <a href="${link.href}" target="_blank" class="menu-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>${link.textContent.trim()}</span>
+                            </a>
+                        </li>
+                    `).join('');
+                }
+            }
+            
+        }
+
+        // 顯示頁面載入器
+        function showPageLoader() {
+            document.getElementById('page-loader').style.display = 'flex';
+        }
+
+        // 隱藏頁面載入器
+        function hidePageLoader() {
+            document.getElementById('page-loader').style.display = 'none';
+        }
+
+        // 顯示錯誤
+        function showError(message) {
+            document.getElementById('error-message').textContent = message;
+            document.getElementById('error-modal').style.display = 'flex';
+        }
+
+        // 關閉錯誤模態框
+        function closeErrorModal() {
+            document.getElementById('error-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

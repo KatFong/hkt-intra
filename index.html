@@ -8,58 +8,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-building"></i>
-                </div>
-            </div>
-            <nav class="main-nav">
-                <a href="#" class="nav-link">Home</a>
-                <a href="#" class="nav-link">Apps</a>
-                <div class="nav-dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active">Departments</a>
-                    <div class="megamenu">
-                        <div class="megamenu-content">
-                            <div class="megamenu-header">
-                                <h3>Departments</h3>
-                            </div>
-                            <ul class="megamenu-list" id="departments-list">
-                                <li class="loading-departments">
-                                    <i class="fas fa-spinner fa-spin"></i>
-                                    載入部門中...
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <a href="#" class="nav-link">Documents</a>
-                <a href="#" class="nav-link">Directory</a>
-                <a href="#" class="nav-link">Policies</a>
-            </nav>
-            <div class="header-right">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search">
-                </div>
-                <div class="header-icons">
-                    <div class="notification-icon">
-                        <i class="fas fa-bell"></i>
-                        <span class="badge">1</span>
-                    </div>
-                    <div class="calendar-icon">
-                        <i class="fas fa-calendar"></i>
-                    </div>
-                    <div class="user-avatar">
-                        <i class="fas fa-leaf"></i>
-                        <span>User Avatar</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- Header Container -->
+    <div id="header-container"></div>
 
     <div class="main-container">
         <!-- Left Sidebar -->
@@ -135,6 +85,26 @@
         <main class="main-content">
             <!-- Banner Area -->
             <div class="banner">
+                <!-- Image Slider -->
+                <div class="image-slider" id="image-slider">
+                    <div class="slider-container">
+                        <div class="slider-wrapper" id="slider-wrapper">
+                            <!-- Images will be loaded dynamically -->
+                        </div>
+                        <div class="slider-controls">
+                            <button class="slider-btn prev" id="prev-btn">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="slider-btn next" id="next-btn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="slider-dots" id="slider-dots">
+                            <!-- Dots will be generated dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="banner-background">
                     <div class="city-skyline"></div>
                     <div class="chart-graphic"></div>
@@ -152,9 +122,9 @@
                 <!-- Filter Tabs -->
                 <div class="news-tabs">
                     <button class="tab-btn active" data-filter="all">All</button>
-                    <button class="tab-btn" data-filter="financial">Corporate Announcements</button>
-                    <button class="tab-btn" data-filter="shareholder">BU/Functional Unit Specific News</button>
-                    <button class="tab-btn" data-filter="esg">Media Releases</button>
+                    <button class="tab-btn" data-filter="corporate-announcements">Corporate Announcements</button>
+                    <button class="tab-btn" data-filter="bu">BU/Functional Unit Specific News</button>
+                    <button class="tab-btn" data-filter="media-releases">Media Releases</button>
                 </div>
                 
                 <!-- News List -->
@@ -236,7 +206,7 @@
         <!-- Right Sidebar -->
         <aside class="sidebar-right">
             <div class="widget">
-                <h3>Employee Corner</h3>
+                <h3>Staff Corner</h3>
                 <div class="employee-links">
                     <div class="employee-link">
                         <i class="fas fa-home" style="color: #FF6B35;"></i>
@@ -283,6 +253,20 @@
         </aside>
     </div>
 
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- 載入組件 -->
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/app.js"></script>
     <script src="script.js"></script>
+    
+    <script>
+        // 初始化應用組件
+        document.addEventListener('DOMContentLoaded', function() {
+            window.app = new AppComponents();
+        });
+    </script>
 </body>
 </html>

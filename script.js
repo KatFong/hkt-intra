@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollEffects();
     initDepartmentsAPI();
     initNewsAPI();
+    initImageSliderAPI();
 });
 
 // 導航功能
@@ -77,13 +78,32 @@ function initNewsSection() {
     const newsItems = document.querySelectorAll('.news-item');
     
     newsItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
+        // 添加點擊事件跳轉到新聞詳情頁面
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 獲取新聞標題作為參數
+            const newsTitle = this.querySelector('.news-title').textContent;
+            const newsDate = this.querySelector('.news-date').textContent;
+            const newsCategory = this.querySelector('.news-category').textContent;
+            
+            console.log('News clicked:', { newsTitle, newsDate, newsCategory });
+            
+            // 創建 URL 參數
+            const params = new URLSearchParams({
+                title: newsTitle,
+                date: newsDate,
+                category: newsCategory
+            });
+            
+            // 跳轉到新聞詳情頁面
+            const url = `news-detail-new.html?${params.toString()}`;
+            console.log('Redirecting to:', url);
+            window.location.href = url;
         });
         
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
+        // 添加游標樣式
+        item.style.cursor = 'pointer';
     });
 }
 
@@ -268,7 +288,7 @@ function initDepartmentsAPI() {
     if (!departmentsList) return;
     
     // 顯示載入狀態
-    departmentsList.innerHTML = '<li class="loading-departments"><i class="fas fa-spinner fa-spin"></i> 載入部門中...</li>';
+    departmentsList.innerHTML = '<li class="loading-departments"><i class="fas fa-spinner fa-spin"></i> Loading departments...</li>';
     
     // 調用部門 API
     fetch('http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/departments')
@@ -336,21 +356,13 @@ function displayDepartments(departments) {
             
             console.log('選擇部門:', deptName, 'ID:', deptId);
             
-            // 更新部門按鈕文字
-            const departmentToggle = document.querySelector('.dropdown-toggle');
-            if (departmentToggle) {
-                departmentToggle.textContent = deptName;
+            // 跳轉到部門詳情頁面
+            if (deptId) {
+                window.location.href = `department-detail.html?id=${deptId}`;
+            } else {
+                console.error('部門ID不存在');
+                showNotification('無法載入部門詳情', 'error');
             }
-            
-            // 隱藏菜單
-            const megamenu = document.querySelector('.megamenu');
-            if (megamenu) {
-                megamenu.style.opacity = '0';
-                megamenu.style.visibility = 'hidden';
-            }
-            
-            // 這裡可以添加部門選擇的其他邏輯
-            showNotification(`已選擇部門: ${deptName}`, 'success');
         });
     });
 }
@@ -363,7 +375,7 @@ function displayDepartmentsError(error) {
     departmentsList.innerHTML = `
         <li class="error-departments">
             <i class="fas fa-exclamation-triangle"></i>
-            載入部門失敗: ${error.message}
+            Loading departments failed: ${error.message}
         </li>
     `;
 }
@@ -414,12 +426,13 @@ async function loadNewsByCategory(category) {
         // 根據分類添加參數
         const categoryMap = {
             'all': '',
-            'financial': 'corporate-announcements',
-            'shareholder': 'bu',
-            'esg': 'media-releases'
+            'corporate-announcements': 'corporate-announcements',
+            'bu': 'bu',
+            'media-releases': 'media-releases',
+            'others': 'others'
         };
         
-        if (categoryMap[category]) {
+        if (categoryMap[category] && category !== 'all') {
             url += `?category_slug=${categoryMap[category]}`;
         }
         
@@ -462,9 +475,12 @@ function displayNewsFromAPI(newsItems) {
     }
     
     newsList.innerHTML = newsItems.map(article => {
-        const title = article.title || article.post_title || '無標題';
-        const date = article.date || article.post_date || article.created_date || '未知日期';
-        const category = article.category || article.category_name || article.category_slug || '未分類';
+        // 根據真實 API 格式解析數據
+        const title = article.news_title || article.title || article.post_title || '無標題';
+        const date = article.news_date || article.date || article.post_date || article.created_date || '未知日期';
+        const category = article.news_category ? 
+            (article.news_category.name || article.news_category) : 
+            (article.category || article.category_name || article.category_slug || '未分類');
         const id = article.id || article.post_id || '';
         
         return `
@@ -477,67 +493,77 @@ function displayNewsFromAPI(newsItems) {
         `;
     }).join('');
     
-    // 添加點擊事件
+    // 添加點擊事件跳轉到新聞詳情頁面
     const newsItemsElements = newsList.querySelectorAll('.news-item');
     newsItemsElements.forEach(item => {
-        item.addEventListener('click', function() {
-            const newsId = this.getAttribute('data-id');
-            console.log('選擇新聞:', newsId);
-            // 這裡可以添加新聞詳情的邏輯
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 獲取新聞標題作為參數
+            const newsTitle = this.querySelector('.news-title').textContent;
+            const newsDate = this.querySelector('.news-date').textContent;
+            const newsCategory = this.querySelector('.news-category').textContent;
+            
+            console.log('News clicked:', { newsTitle, newsDate, newsCategory });
+            
+            // 創建 URL 參數
+            const params = new URLSearchParams({
+                title: newsTitle,
+                date: newsDate,
+                category: newsCategory
+            });
+            
+            // 跳轉到新聞詳情頁面
+            const url = `news-detail-new.html?${params.toString()}`;
+            console.log('Redirecting to:', url);
+            window.location.href = url;
         });
+        
+        // 添加游標樣式
+        item.style.cursor = 'pointer';
     });
 }
 
 // 格式化日期
 function formatDate(dateString) {
     try {
+        // 處理 sample-news.json 中的日期格式: "09/25/2025 4:11pm"
+        if (typeof dateString === 'string' && dateString.includes('/')) {
+            // 解析 MM/DD/YYYY HH:MMam/pm 格式
+            const parts = dateString.split(' ');
+            if (parts.length >= 1) {
+                const datePart = parts[0]; // "09/25/2025"
+                const [month, day, year] = datePart.split('/');
+                
+                if (month && day && year) {
+                    return `${month}.${day}.${year}`;
+                }
+            }
+        }
+        
+        // 嘗試解析其他日期格式
         const date = new Date(dateString);
+        
+        // 檢查日期是否有效
+        if (isNaN(date.getTime())) {
+            console.warn('Invalid date format:', dateString);
+            return dateString; // 返回原始字符串
+        }
+        
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         const year = date.getFullYear();
         return `${month}.${day}.${year}`;
     } catch (error) {
+        console.warn('Date formatting error:', error, 'for date:', dateString);
         return dateString;
     }
 }
 
 // 載入新聞數據
 function loadNewsData() {
-    const newsList = document.getElementById('news-list-dark');
-    if (!newsList) return;
-    
-    // 顯示載入狀態
-    const loadingElement = document.getElementById('news-loading');
-    if (loadingElement) {
-        loadingElement.style.display = 'block';
-    }
-    
-    // 模擬 API 調用
-    setTimeout(() => {
-        if (loadingElement) {
-            loadingElement.style.display = 'none';
-        }
-        
-        // 這裡可以替換為實際的新聞 API 調用
-        const mockNews = [
-            {
-                id: 1,
-                date: '09.22.2025',
-                category: 'Corporate Announcements',
-                title: 'Desk Diaries for 2026',
-                content: '年度桌曆發放通知'
-            },
-            {
-                id: 2,
-                date: '09.19.2025',
-                category: 'Corporate Announcements',
-                title: 'Wellness Month Is Here — Let\'s Recharge Together This October!',
-                content: '員工健康月活動通知'
-            }
-        ];
-        
-        displayNews(mockNews);
-    }, 1000);
+    // 調用 "All" 分類的 API
+    loadNewsByCategory('all');
 }
 
 // 顯示新聞列表
@@ -553,20 +579,40 @@ function displayNews(newsItems) {
     newsList.innerHTML = newsItems.map(news => `
         <div class="news-item" data-id="${news.id}">
             <div class="news-date">${news.date}</div>
-            <div class="news-category">${news.category}</div>
             <div class="news-title">${news.title}</div>
+            <div class="news-category">${news.category}</div>
             <div class="news-arrow"><i class="fas fa-chevron-right"></i></div>
         </div>
     `).join('');
     
-    // 添加點擊事件
+    // 添加點擊事件跳轉到新聞詳情頁面
     const newsItemsElements = newsList.querySelectorAll('.news-item');
     newsItemsElements.forEach(item => {
-        item.addEventListener('click', function() {
-            const newsId = this.getAttribute('data-id');
-            console.log('選擇新聞:', newsId);
-            // 這裡可以添加新聞詳情的邏輯
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 獲取新聞標題作為參數
+            const newsTitle = this.querySelector('.news-title').textContent;
+            const newsDate = this.querySelector('.news-date').textContent;
+            const newsCategory = this.querySelector('.news-category').textContent;
+            
+            console.log('News clicked:', { newsTitle, newsDate, newsCategory });
+            
+            // 創建 URL 參數
+            const params = new URLSearchParams({
+                title: newsTitle,
+                date: newsDate,
+                category: newsCategory
+            });
+            
+            // 跳轉到新聞詳情頁面
+            const url = `news-detail-new.html?${params.toString()}`;
+            console.log('Redirecting to:', url);
+            window.location.href = url;
         });
+        
+        // 添加游標樣式
+        item.style.cursor = 'pointer';
     });
 }
 
@@ -577,3 +623,164 @@ window.HKTIntranet = {
     loadNewsData,
     displayNews
 };
+
+// 圖片輪播 API 功能
+async function initImageSliderAPI() {
+    console.log('初始化圖片輪播 API');
+    
+    try {
+        const response = await fetch('http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/image-sliders');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const sliderData = await response.json();
+        console.log('圖片輪播數據載入成功:', sliderData);
+        
+        if (sliderData && sliderData.length > 0) {
+            displayImageSlider(sliderData[0]); // 使用第一個輪播組
+        } else {
+            console.log('沒有找到圖片輪播數據');
+            showSliderFallback();
+        }
+        
+    } catch (error) {
+        console.error('載入圖片輪播失敗:', error);
+        showSliderFallback();
+    }
+}
+
+// 顯示圖片輪播
+function displayImageSlider(sliderData) {
+    const sliderWrapper = document.getElementById('slider-wrapper');
+    const sliderDots = document.getElementById('slider-dots');
+    
+    if (!sliderWrapper || !sliderDots) {
+        console.error('找不到輪播容器元素');
+        return;
+    }
+    
+    const images = sliderData.images || [];
+    
+    if (images.length === 0) {
+        showSliderFallback();
+        return;
+    }
+    
+    // 清空現有內容
+    sliderWrapper.innerHTML = '';
+    sliderDots.innerHTML = '';
+    
+    // 創建圖片元素
+    images.forEach((image, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        slide.style.display = index === 0 ? 'block' : 'none';
+        
+        const img = document.createElement('img');
+        img.src = image.url_full;
+        img.alt = image.alt || image.title || `輪播圖片 ${index + 1}`;
+        img.title = image.title || '';
+        
+        // 使用適當的圖片尺寸 - 根據樣本數據格式調整
+        if (image.sizes && image.sizes.medium_large) {
+            // 樣本數據中 sizes 對象沒有 url 字段，需要構建完整 URL
+            const baseUrl = image.url_full.substring(0, image.url_full.lastIndexOf('/') + 1);
+            img.src = baseUrl + image.sizes.medium_large.file || image.url_full;
+        } else if (image.sizes && image.sizes.medium) {
+            const baseUrl = image.url_full.substring(0, image.url_full.lastIndexOf('/') + 1);
+            img.src = baseUrl + image.sizes.medium.file || image.url_full;
+        }
+        
+        slide.appendChild(img);
+        sliderWrapper.appendChild(slide);
+        
+        // 創建指示點
+        const dot = document.createElement('button');
+        dot.className = `dot ${index === 0 ? 'active' : ''}`;
+        dot.setAttribute('data-slide', index);
+        dot.addEventListener('click', () => goToSlide(index));
+        sliderDots.appendChild(dot);
+    });
+    
+    // 初始化輪播控制
+    initSliderControls(images.length);
+}
+
+// 初始化輪播控制
+function initSliderControls(totalSlides) {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const dots = document.querySelectorAll('.dot');
+    
+    let currentSlide = 0;
+    
+    // 上一張按鈕
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(currentSlide);
+        });
+    }
+    
+    // 下一張按鈕
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+        });
+    }
+    
+    // 自動輪播
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        goToSlide(currentSlide);
+    }, 5000); // 每5秒切換
+}
+
+// 跳轉到指定圖片
+function goToSlide(slideIndex) {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    
+    // 隱藏所有圖片
+    slides.forEach(slide => {
+        slide.style.display = 'none';
+    });
+    
+    // 移除所有指示點活動狀態
+    dots.forEach(dot => {
+        dot.classList.remove('active');
+    });
+    
+    // 顯示指定圖片
+    if (slides[slideIndex]) {
+        slides[slideIndex].style.display = 'block';
+    }
+    
+    // 激活對應指示點
+    if (dots[slideIndex]) {
+        dots[slideIndex].classList.add('active');
+    }
+}
+
+// 顯示輪播備用內容
+function showSliderFallback() {
+    const sliderWrapper = document.getElementById('slider-wrapper');
+    const sliderDots = document.getElementById('slider-dots');
+    
+    if (sliderWrapper) {
+        sliderWrapper.innerHTML = `
+            <div class="slide" style="display: block;">
+                <div class="fallback-content">
+                    <h3>歡迎來到 HKT 內網</h3>
+                    <p>圖片輪播功能正在載入中...</p>
+                </div>
+            </div>
+        `;
+    }
+    
+    if (sliderDots) {
+        sliderDots.innerHTML = '';
+    }
+}

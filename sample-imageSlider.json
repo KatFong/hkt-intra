@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "name": "Image slider1",
+    "images": [
+      {
+        "id": 98,
+        "url_full": "http://10.171.208.81/wordpress/wp-content/uploads/1702-2.jpg",
+        "sizes": {
+          "thumbnail": {
+            "file": "1702-2-150x75.jpg",
+            "width": 150,
+            "height": 75,
+            "mime-type": "image/jpeg",
+            "filesize": 4393
+          }
+        },
+        "alt": "",
+        "title": "1702",
+        "caption": ""
+      },
+      {
+        "id": 13,
+        "url_full": "http://10.171.208.81/wordpress/wp-content/uploads/corporate-highlight-14-July-V3.gif",
+        "sizes": {
+          "medium": {
+            "file": "corporate-highlight-14-July-V3-300x135.gif",
+            "width": 300,
+            "height": 135,
+            "mime-type": "image/gif",
+            "filesize": 29387
+          },
+          "thumbnail": {
+            "file": "corporate-highlight-14-July-V3-150x68.gif",
+            "width": 150,
+            "height": 68,
+            "mime-type": "image/gif",
+            "filesize": 9733
+          },
+          "medium_large": {
+            "file": "corporate-highlight-14-July-V3-768x346.gif",
+            "width": 768,
+            "height": 346,
+            "mime-type": "image/gif",
+            "filesize": 152026
+          },
+          "post-thumbnail": {
+            "file": "corporate-highlight-14-July-V3-300x300.gif",
+            "width": 300,
+            "height": 300,
+            "mime-type": "image/gif",
+            "filesize": 55307
+          },
+          "futurio-med": {
+            "file": "corporate-highlight-14-July-V3-720x405.gif",
+            "width": 720,
+            "height": 405,
+            "mime-type": "image/gif",
+            "filesize": 174206
+          },
+          "futurio-thumbnail": {
+            "file": "corporate-highlight-14-July-V3-160x120.gif",
+            "width": 160,
+            "height": 120,
+            "mime-type": "image/gif",
+            "filesize": 15770
+          }
+        },
+        "alt": "",
+        "title": "corporate-highlight-14-July-V3",
+        "caption": ""
+      }
+    ]
+  }
+]

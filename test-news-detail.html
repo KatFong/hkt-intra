@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>測試新聞詳情 - HKT 內網</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Container -->
+    <div id="header-container"></div>
+
+    <main class="main">
+        <!-- 麵包屑導航 -->
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-news">News Details</span>
+        </div>
+        
+        <h1 class="news-title">Test News Title</h1>
+        
+        <div class="news-detail">
+            
+            <div class="news-meta">
+                <span>📅 發布日期：測試日期</span>
+                <span>👤 作者：測試作者</span>
+                <span>🏷️ 分類：測試分類</span>
+                <span>👁️ 閱讀次數：1,234</span>
+            </div>
+            
+            <div class="news-content">
+                <p>載入中...</p>
+            </div>       
+        </div>
+    </main>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- 載入組件 -->
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/app.js"></script>
+    
+    <script>
+        // 測試動態內容載入
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('測試頁面載入完成');
+            
+            // 初始化應用組件
+            window.app = new AppComponents();
+            
+            // 模擬 URL 參數
+            const testTitle = "Desk Diaries for 2026";
+            const testDate = "09.22.2025";
+            const testCategory = "Corporate Announcements";
+            
+            // 設置 URL 參數
+            const url = new URL(window.location);
+            url.searchParams.set('title', testTitle);
+            url.searchParams.set('date', testDate);
+            url.searchParams.set('category', testCategory);
+            window.history.replaceState({}, '', url);
+            
+            // 載入新聞詳情
+            loadNewsDetail();
+        });
+        
+        // 複製 news-detail-new.html 中的函數
+        async function loadNewsDetail() {
+            console.log('開始載入新聞詳情...');
+            const urlParams = new URLSearchParams(window.location.search);
+            const title = urlParams.get('title');
+            const date = urlParams.get('date');
+            const category = urlParams.get('category');
+            
+            console.log('URL 參數:', { title, date, category });
+            
+            if (title) {
+                // 更新頁面標題
+                document.title = `${title} - HKT 內網`;
+                
+                // 更新麵包屑
+                const breadcrumbNews = document.getElementById('breadcrumb-news');
+                if (breadcrumbNews) {
+                    breadcrumbNews.textContent = title;
+                }
+                
+                // 更新新聞標題
+                const newsTitle = document.querySelector('.news-detail h1');
+                if (newsTitle) {
+                    newsTitle.textContent = title;
+                }
+                
+                // 更新新聞元數據
+                const newsMeta = document.querySelector('.news-meta');
+                if (newsMeta && date && category) {
+                    newsMeta.innerHTML = `
+                        <span>📅 發布日期：${date}</span>
+                        <span>👤 作者：HKT 技術團隊</span>
+                        <span>🏷️ 分類：${category}</span>
+                        <span>👁️ 閱讀次數：1,234</span>
+                    `;
+                }
+                
+                // 嘗試從 API 載入完整的新聞內容
+                console.log('嘗試從 API 載入內容...');
+                try {
+                    await loadNewsContentFromAPI(title);
+                    console.log('API 載入成功');
+                } catch (error) {
+                    console.log('API 載入失敗，使用默認內容:', error);
+                    loadDefaultNewsContent();
+                }
+            } else {
+                console.log('沒有 URL 參數，載入默認內容');
+                loadDefaultNewsContent();
+            }
+        }
+        
+        async function loadNewsContentFromAPI(title) {
+            try {
+                console.log('正在從 API 載入新聞內容，標題:', title);
+                const response = await fetch('http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/news-articles/');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const newsData = await response.json();
+                console.log('API 回應數據:', newsData);
+                
+                const newsItem = newsData.find(item => item.news_title === title);
+                console.log('找到的新聞項目:', newsItem);
+                
+                if (newsItem) {
+                    displayNewsContent(newsItem);
+                } else {
+                    console.log('未找到匹配的新聞項目，可用標題:', newsData.map(item => item.news_title));
+                    throw new Error('News item not found');
+                }
+            } catch (error) {
+                console.error('Failed to load news content from API:', error);
+                throw error;
+            }
+        }
+        
+        function displayNewsContent(newsItem) {
+            console.log('顯示新聞內容:', newsItem);
+            
+            // 更新麵包屑
+            const breadcrumbNews = document.getElementById('breadcrumb-news');
+            if (breadcrumbNews) {
+                breadcrumbNews.textContent = newsItem.news_title;
+            }
+            
+            // 更新標題
+            const newsTitle = document.querySelector('.news-detail h1');
+            if (newsTitle) {
+                newsTitle.textContent = newsItem.news_title;
+                console.log('更新標題:', newsItem.news_title);
+            }
+            
+            // 更新元數據
+            const newsMeta = document.querySelector('.news-meta');
+            if (newsMeta) {
+                const categoryName = newsItem.news_category ? 
+                    (newsItem.news_category.name || newsItem.news_category) : 
+                    '未分類';
+                
+                newsMeta.innerHTML = `
+                    <span>📅 發布日期：${formatNewsDate(newsItem.news_date)}</span>
+                    <span>👤 作者：${newsItem.from || 'HKT 技術團隊'}</span>
+                    <span>🏷️ 分類：${categoryName}</span>
+                    <span>👁️ 閱讀次數：1,234</span>
+                `;
+                console.log('更新元數據完成');
+            }
+            
+            // 更新內容
+            const newsContent = document.querySelector('.news-content');
+            if (newsContent && newsItem.news_content) {
+                // 解析 HTML 內容
+                newsContent.innerHTML = newsItem.news_content;
+                console.log('更新內容完成，內容長度:', newsItem.news_content.length);
+            } else {
+                console.log('沒有找到內容元素或內容為空');
+            }
+        }
+        
+        function loadDefaultNewsContent() {
+            const newsContent = document.querySelector('.news-content');
+            if (newsContent) {
+                newsContent.innerHTML = `
+                    <p>這是默認的新聞內容，用於測試目的。</p>
+                    <p>如果您看到這個內容，表示 API 載入失敗或沒有找到匹配的新聞項目。</p>
+                `;
+            }
+        }
+        
+        function formatNewsDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                
+                if (isNaN(date.getTime())) {
+                    return dateString;
+                }
+                
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${month}.${day}.${year}`;
+            } catch (error) {
+                console.warn('Date formatting error:', error);
+                return dateString;
+            }
+        }
+    </script>
+</body>
+</html>

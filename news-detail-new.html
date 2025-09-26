@@ -3,49 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新聞詳情 - HKT 內網</title>
+    <title>News Details - HKT Intranet</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .news-detail {
-            max-width: 800px;
-            margin: 2rem auto;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
             padding: 2rem;
             background: white;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
         
-        .news-detail h1 {
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 2rem auto 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .breadcrumb a {
+            color: #4A90E2;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: #357abd;
+        }
+        
+        .breadcrumb i {
+            font-size: 0.8rem;
+        }
+        
+        .news-title {
             color: #2c3e50;
             margin-bottom: 1rem;
             font-size: 2.5rem;
             line-height: 1.3;
+            font-weight: bold;
         }
         
+        
         .news-meta {
-            color: #7f8c8d;
+            color: #333;
             margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #ecf0f1;
+            padding: 0;
+            background-color: transparent;
+            font-size: 0.9rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .news-meta-header {
             display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .news-meta-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .news-meta-sender {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+            font-size: 1.2rem;
+            line-height: 1.2;
+        }
+        
+        .news-meta-recipients {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 0;
+            line-height: 1.2;
+        }
+        
+        .news-meta-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+            gap: 0;
+        }
+        
+        .news-meta-time {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            line-height: 1.2;
+        }
+        
+        .news-meta-category {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.2;
         }
         
         .news-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            display: block;
+            margin-bottom: 0.25rem;
         }
         
         .news-content {
-            line-height: 1.8;
+            line-height: 1.7;
             color: #2c3e50;
+            font-size: 1rem;
         }
         
         .news-content p {
             margin-bottom: 1.5rem;
-            text-align: justify;
+            text-align: left;
         }
         
         .news-content img {
@@ -54,6 +129,49 @@
             border-radius: 10px;
             margin: 2rem 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .news-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .news-content table td {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .news-content table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .news-content a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .news-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .news-content strong {
+            font-weight: 600;
+        }
+        
+        .news-content em {
+            font-style: italic;
+        }
+        
+        .news-content ul, .news-content ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        .news-content li {
+            margin-bottom: 0.5rem;
         }
         
         .back-button {
@@ -114,72 +232,67 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <h1 class="logo">HKT 內網</h1>
-            <nav class="nav">
-                <ul>
-                    <li><a href="index.html">首頁</a></li>
-                    <li><a href="index.html#news">新聞</a></li>
-                    <li><a href="index.html#about">關於</a></li>
-                    <li><a href="index.html#contact">聯絡</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <!-- Header Container -->
+    <div id="header-container"></div>
 
     <main class="main">
+        <!-- 麵包屑導航 -->
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumb-news">News Details</span>
+        </div>
+        
+        
         <div class="news-detail">
-            <a href="index.html" class="back-button">
-                ← 返回新聞列表
-            </a>
-            
-            <h1>HKT 內網系統正式上線 - 中國風設計引領企業數位化新潮流</h1>
-            
+
             <div class="news-meta">
-                <span>📅 發布日期：2024年9月26日</span>
-                <span>👤 作者：HKT 技術團隊</span>
-                <span>🏷️ 分類：企業新聞</span>
-                <span>👁️ 閱讀次數：1,234</span>
+                <div class="news-meta-header">
+                    <div class="news-meta-info">
+                        <div class="news-meta-sender" id="news-sender">HKT Technical Team</div>
+                        <div class="news-meta-recipients">
+                            <span id="news-to">To: All colleagues</span>
+                            <span id="news-cc" style="display: none;">CC: </span>
+                        </div>
+                    </div>
+                    <div class="news-meta-right">
+                        <div class="news-meta-time" id="news-date">Fri 26/09/2024 15:20</div>
+                        <div class="news-meta-category" id="news-category" style="display: none;">Category: Corporate News</div>
+                    </div>
+                </div>
             </div>
+
+
+            <h1 class="news-title">HKT Intranet System Officially Launched - Chinese Style Design Leads Enterprise Digitalization</h1>
+            
             
             <div class="news-content">
-                <p>經過數月的精心開發與測試，HKT 內網系統今日正式上線。這套採用中國風設計理念的企業內網平台，不僅在視覺設計上融入了傳統中華文化元素，更在功能性和用戶體驗方面達到了業界領先水準。</p>
+                <p>After months of careful development and testing, the HKT Intranet system is officially launched today. This enterprise intranet platform, designed with Chinese style concepts, not only incorporates traditional Chinese cultural elements in its visual design but also achieves industry-leading standards in functionality and user experience.</p>
                 
-                <p>系統採用響應式設計，支援多種設備訪問，無論是桌面電腦、平板還是手機，都能提供流暢的使用體驗。中國風的設計元素包括傳統色彩搭配、書法字體風格以及古典圖案裝飾，讓企業內網不僅實用，更具文化內涵。</p>
+                <p>The system adopts responsive design, supporting multiple device access. Whether it's desktop computers, tablets, or mobile phones, it provides a smooth user experience. Chinese style design elements include traditional color schemes, calligraphy font styles, and classical pattern decorations, making the enterprise intranet not only practical but also culturally rich.</p>
                 
-                <img src="mission_bg.png" alt="HKT 內網系統截圖" style="width: 100%; max-width: 600px;">
+                <img src="mission_bg.png" alt="HKT Intranet System Screenshot" style="width: 100%; max-width: 600px;">
                 
-                <p>技術架構方面，系統採用現代化的前端技術棧，包括 HTML5、CSS3 和 JavaScript ES6+，確保了良好的性能和兼容性。後端服務採用微服務架構，支援高併發訪問和水平擴展。</p>
+                <p>In terms of technical architecture, the system uses modern frontend technology stack, including HTML5, CSS3, and JavaScript ES6+, ensuring good performance and compatibility. Backend services adopt microservices architecture, supporting high concurrency access and horizontal scaling.</p>
                 
-                <p>安全性是企業內網的核心考量。系統實施了多層安全防護機制，包括用戶身份認證、權限管理、數據加密傳輸等，確保企業數據的安全性和隱私保護。</p>
+                <p>Security is a core consideration for enterprise intranets. The system implements multi-layer security protection mechanisms, including user authentication, permission management, data encryption transmission, etc., ensuring the security and privacy protection of enterprise data.</p>
                 
-                <p>未來，我們將持續優化系統功能，增加更多智能化特性，如 AI 驅動的內容推薦、智能搜索、個性化儀表板等，為用戶提供更加便捷和高效的工作體驗。</p>
+                <p>In the future, we will continue to optimize system functions and add more intelligent features, such as AI-driven content recommendations, intelligent search, personalized dashboards, etc., to provide users with more convenient and efficient work experience.</p>
                 
-                <p>HKT 內網系統的上線標誌著我們在企業數位化轉型道路上邁出了重要一步。我們相信，這套融合了傳統文化與現代科技的系統，將為企業員工帶來全新的工作體驗，提升工作效率和滿意度。</p>
-            </div>
-            
-            <div class="share-buttons">
-                <button class="share-btn share-facebook" onclick="shareToFacebook()">
-                    📘 分享到 Facebook
-                </button>
-                <button class="share-btn share-twitter" onclick="shareToTwitter()">
-                    🐦 分享到 Twitter
-                </button>
-                <button class="share-btn share-linkedin" onclick="shareToLinkedIn()">
-                    💼 分享到 LinkedIn
-                </button>
-            </div>
+                <p>The launch of the HKT Intranet system marks an important step forward in our enterprise digital transformation journey. We believe that this system, which combines traditional culture with modern technology, will bring a new work experience to enterprise employees and improve work efficiency and satisfaction.</p>
+            </div>       
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 HKT 內網. 版權所有.</p>
-        </div>
-    </footer>
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
 
+    <!-- 載入組件 -->
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/app.js"></script>
     <script src="script.js"></script>
+    
     <script>
         // 分享功能
         function shareToFacebook() {
@@ -209,15 +322,267 @@
             const readingTime = Math.ceil(wordCount / wordsPerMinute);
             
             const readingTimeElement = document.createElement('span');
-            readingTimeElement.innerHTML = `⏱️ 預估閱讀時間：${readingTime} 分鐘`;
             readingTimeElement.style.color = '#7f8c8d';
             readingTimeElement.style.fontSize = '0.9rem';
             
             document.querySelector('.news-meta').appendChild(readingTimeElement);
         }
         
-        // 頁面載入完成後執行
+        // Load news details
+        async function loadNewsDetail() {
+            console.log('Starting to load news details...');
+            const urlParams = new URLSearchParams(window.location.search);
+            const title = urlParams.get('title');
+            const date = urlParams.get('date');
+            const category = urlParams.get('category');
+            const from = urlParams.get('from');
+            const to = urlParams.get('to');
+            const cc = urlParams.get('cc');
+            
+            console.log('URL parameters:', { title, date, category, from, to, cc });
+            
+            if (title) {
+                // Update page title
+                document.title = `${title} - HKT Intranet`;
+                
+                // Update breadcrumb
+                const breadcrumbNews = document.getElementById('breadcrumb-news');
+                if (breadcrumbNews) {
+                    breadcrumbNews.textContent = title;
+                }
+                
+                // Update news metadata with all available parameters
+                updateNewsMetadata({
+                    news_date: date || '09/26/2024 10:00am',
+                    from: from || '',
+                    to: to || '',
+                    cc: cc || '',
+                    news_category: { name: category || '' }
+                });
+
+                // Update news title
+                const newsTitle = document.querySelector('.news-title');
+                if (newsTitle) {
+                    newsTitle.textContent = title;
+                }
+                
+
+                
+                // Try to load complete news content from API
+                console.log('Trying to load content from API...');
+                try {
+                    await loadNewsContentFromAPI(title);
+                    console.log('API load successful');
+                } catch (error) {
+                    console.log('API load failed, using default content:', error);
+                    loadDefaultNewsContent();
+                }
+            } else {
+                console.log('No URL parameters, loading default content');
+                // If no URL parameters, load default content
+                loadDefaultNewsContent();
+            }
+        }
+        
+        // Load news content from API
+        async function loadNewsContentFromAPI(title) {
+            try {
+                console.log('Loading news content from API, title:', title);
+                const response = await fetch('http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/news-articles/');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const newsData = await response.json();
+                console.log('API response data:', newsData);
+                
+                const newsItem = newsData.find(item => item.news_title === title);
+                console.log('Found news item:', newsItem);
+                
+                if (newsItem) {
+                    displayNewsContent(newsItem);
+                } else {
+                    console.log('No matching news item found, available titles:', newsData.map(item => item.news_title));
+                    throw new Error('News item not found');
+                }
+            } catch (error) {
+                console.error('Failed to load news content from API:', error);
+                throw error;
+            }
+        }
+        
+        // Display news content
+        function displayNewsContent(newsItem) {
+            console.log('Displaying news content:', newsItem);
+            
+            // Update breadcrumb
+            const breadcrumbNews = document.getElementById('breadcrumb-news');
+            if (breadcrumbNews) {
+                breadcrumbNews.textContent = newsItem.news_title;
+            }
+            
+            // Update title
+            const newsTitle = document.querySelector('.news-title');
+            if (newsTitle) {
+                newsTitle.textContent = newsItem.news_title;
+                console.log('Updated title:', newsItem.news_title);
+            }
+            
+            // Update metadata
+            updateNewsMetadata(newsItem);
+            
+            // Update content
+            const newsContent = document.querySelector('.news-content');
+            if (newsContent && newsItem.news_content) {
+                // Parse HTML content
+                newsContent.innerHTML = newsItem.news_content;
+                console.log('Content updated, content length:', newsItem.news_content.length);
+            } else {
+                console.log('No content element found or content is empty');
+            }
+        }
+        
+        // Load default news content
+        function loadDefaultNewsContent() {
+            // Update metadata with default values
+            updateNewsMetadata({
+                news_date: '09/26/2024 10:00am',
+                from: '',  // Empty, will be hidden
+                to: 'All colleagues',
+                cc: '',  // Empty, will be hidden
+                news_category: { name: 'Corporate News' }
+            });
+            
+            const newsContent = document.querySelector('.news-content');
+            if (newsContent) {
+                newsContent.innerHTML = `
+                    <p>After months of careful development and testing, the HKT Intranet system is officially launched today. This enterprise intranet platform, designed with Chinese style concepts, not only incorporates traditional Chinese cultural elements in its visual design but also achieves industry-leading standards in functionality and user experience.</p>
+                    
+                    <p>The system adopts responsive design, supporting multiple device access. Whether it's desktop computers, tablets, or mobile phones, it provides a smooth user experience. Chinese style design elements include traditional color schemes, calligraphy font styles, and classical pattern decorations, making the enterprise intranet not only practical but also culturally rich.</p>
+                    
+                    <img src="mission_bg.png" alt="HKT Intranet System Screenshot" style="width: 100%; max-width: 600px;">
+                    
+                    <p>In terms of technical architecture, the system uses modern frontend technology stack, including HTML5, CSS3, and JavaScript ES6+, ensuring good performance and compatibility. Backend services adopt microservices architecture, supporting high concurrency access and horizontal scaling.</p>
+                    
+                    <p>Security is a core consideration for enterprise intranets. The system implements multi-layer security protection mechanisms, including user authentication, permission management, data encryption transmission, etc., ensuring the security and privacy protection of enterprise data.</p>
+                    
+                    <p>In the future, we will continue to optimize system functions and add more intelligent features, such as AI-driven content recommendations, intelligent search, personalized dashboards, etc., to provide users with more convenient and efficient work experience.</p>
+                    
+                    <p>The launch of the HKT Intranet system marks an important step forward in our enterprise digital transformation journey. We believe that this system, which combines traditional culture with modern technology, will bring a new work experience to enterprise employees and improve work efficiency and satisfaction.</p>
+                `;
+            }
+        }
+        
+        // Update news metadata with email header format
+        function updateNewsMetadata(newsItem) {
+            // Update sender name (only show if not empty)
+            const senderElement = document.getElementById('news-sender');
+            if (senderElement) {
+                if (newsItem.from && newsItem.from.trim() !== '') {
+                    senderElement.textContent = newsItem.from;
+                    senderElement.style.display = 'block';
+                } else {
+                    senderElement.style.display = 'none';
+                }
+            }
+            
+            // Update recipients
+            const toElement = document.getElementById('news-to');
+            if (toElement) {
+                if (newsItem.to && newsItem.to.trim() !== '') {
+                    toElement.textContent = `To: ${newsItem.to}`;
+                    toElement.style.display = 'block';
+                } else {
+                    toElement.style.display = 'none';
+                }
+            }
+            
+            // Update CC field
+            const ccElement = document.getElementById('news-cc');
+            if (ccElement) {
+                if (newsItem.cc && newsItem.cc.trim() !== '') {
+                    ccElement.textContent = `CC: ${newsItem.cc}`;
+                    ccElement.style.display = 'block';
+                } else {
+                    ccElement.style.display = 'none';
+                }
+            }
+            
+            // Update date/time
+            const dateElement = document.getElementById('news-date');
+            if (dateElement) {
+                dateElement.textContent = formatEmailDate(newsItem.news_date);
+            }
+            
+            // Update category (optional, hidden by default)
+            const categoryElement = document.getElementById('news-category');
+            if (categoryElement) {
+                const categoryName = newsItem.news_category ? 
+                    (newsItem.news_category.name || newsItem.news_category) : 
+                    '';
+                
+                if (categoryName && categoryName.trim() !== '') {
+                    categoryElement.textContent = `Category: ${categoryName}`;
+                    categoryElement.style.display = 'block';
+                } else {
+                    categoryElement.style.display = 'none';
+                }
+            }
+            
+            console.log('Updated email header format metadata');
+        }
+        
+        // Format date for email header
+        function formatEmailDate(dateString) {
+            try {
+                const date = new Date(dateString);
+                if (isNaN(date.getTime())) {
+                    return 'Fri 26/09/2024 15:20';
+                }
+                
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const dayName = days[date.getDay()];
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                
+                return `${dayName} ${day}/${month}/${year} ${hours}:${minutes}`;
+            } catch (error) {
+                console.warn('Date formatting error:', error);
+                return 'Fri 26/09/2024 15:20';
+            }
+        }
+
+        // Format news date
+        function formatNewsDate(dateString) {
+            try {
+                // Handle date format from sample-news.json: "09/25/2025 4:11pm"
+                const date = new Date(dateString);
+                
+                if (isNaN(date.getTime())) {
+                    return dateString;
+                }
+                
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${month}.${day}.${year}`;
+            } catch (error) {
+                console.warn('Date formatting error:', error);
+                return dateString;
+            }
+        }
+        
+        // Execute after page load
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize app components
+            window.app = new AppComponents();
+            
+            // Load news details
+            loadNewsDetail();
+            
             calculateReadingTime();
             
             // 添加滾動到頂部按鈕
