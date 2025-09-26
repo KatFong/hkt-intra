@@ -1,61 +1,287 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HKT 內網 - 中國風</title>
+    <title>Company Intranet</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Top Navigation Bar -->
     <header class="header">
-        <div class="container">
-            <h1 class="logo">HKT 內網</h1>
-            <nav class="nav">
-                <ul>
-                    <li><a href="#home">首頁</a></li>
-                    <li><a href="#news">新聞</a></li>
-                    <li><a href="#about">關於</a></li>
-                    <li><a href="#contact">聯絡</a></li>
-                </ul>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Apps</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active">Departments</a>
+                    <div class="megamenu">
+                        <div class="megamenu-content">
+                            <div class="megamenu-header">
+                                <h3>Departments</h3>
+                            </div>
+                            <ul class="megamenu-list" id="departments-list">
+                                <li class="loading-departments">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    載入部門中...
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="nav-link">Documents</a>
+                <a href="#" class="nav-link">Directory</a>
+                <a href="#" class="nav-link">Policies</a>
             </nav>
+            <div class="header-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+                <div class="header-icons">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">1</span>
+                    </div>
+                    <div class="calendar-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="user-avatar">
+                        <i class="fas fa-leaf"></i>
+                        <span>User Avatar</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main class="main">
-        <section class="hero">
-            <div class="hero-content">
-                <h2>歡迎來到 HKT 內網</h2>
-                <p>中國風設計的企業內網平台</p>
-                <button class="btn-primary">了解更多</button>
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar-left">
+            <div class="quick-access">
+                <h3>Quick Access</h3>
+                <div class="quick-icons">
+                    <div class="quick-icon">
+                        <i class="fas fa-th-large"></i>
+                        <span>Apps</span>
+                    </div>
+                    <div class="quick-icon">
+                        <i class="fas fa-bolt"></i>
+                        <span>Quick</span>
+                    </div>
+                    <div class="quick-icon">
+                        <i class="fas fa-link"></i>
+                        <span>Path</span>
+                    </div>
+                    <div class="quick-icon">
+                        <i class="fas fa-tools"></i>
+                        <span>Build</span>
+                    </div>
+                    <div class="quick-icon">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </div>
+                    <div class="quick-icon">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </div>
+                    <div class="quick-icon">
+                        <i class="fas fa-users"></i>
+                        <span>Team</span>
+                    </div>
+                    <div class="quick-icon">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help</span>
+                    </div>
+                </div>
             </div>
-            <div class="hero-image">
-                <img src="mission_bg.png" alt="使命背景" class="mission-bg">
+            
+            <div class="navigation-menu">
+                <div class="menu-item">
+                    <i class="fas fa-home"></i>
+                    <span>App Shortcuts</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Quick Directions</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Useful Info</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Resources</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-gift"></i>
+                    <span>Benefits</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
             </div>
-        </section>
+        </aside>
 
-        <section class="news-section">
-            <h3>最新消息</h3>
-            <div class="news-grid">
-                <article class="news-item">
-                    <h4>新聞標題 1</h4>
-                    <p>新聞內容摘要...</p>
-                    <a href="news-detail-new.html" class="read-more">閱讀更多</a>
-                </article>
-                <article class="news-item">
-                    <h4>新聞標題 2</h4>
-                    <p>新聞內容摘要...</p>
-                    <a href="news-detail-new.html" class="read-more">閱讀更多</a>
-                </article>
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Banner Area -->
+            <div class="banner">
+                <div class="banner-background">
+                    <div class="city-skyline"></div>
+                    <div class="chart-graphic"></div>
+                </div>
+                <div class="banner-content">
+                    <div class="banner-text">
+                        <h1>Company Vision, Mission & Core Values</h1>
+                        <p>Committed to providing quality intranet services for employees, promoting corporate culture and team collaboration</p>
+                    </div>
+                </div>
             </div>
-        </section>
-    </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 HKT 內網. 版權所有.</p>
-        </div>
-    </footer>
+            <!-- News Section -->
+            <div class="news-section">
+                <!-- Filter Tabs -->
+                <div class="news-tabs">
+                    <button class="tab-btn active" data-filter="all">All</button>
+                    <button class="tab-btn" data-filter="financial">Corporate Announcements</button>
+                    <button class="tab-btn" data-filter="shareholder">BU/Functional Unit Specific News</button>
+                    <button class="tab-btn" data-filter="esg">Media Releases</button>
+                </div>
+                
+                <!-- News List -->
+                <div class="news-list" id="news-list-dark">
+                    <div id="news-loading" style="display: none; text-align: center; padding: 20px; color: white;">
+                        <i class="fas fa-spinner fa-spin"></i> 載入新聞中...
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">09.22.2025</div>
+                        <div class="news-category">Corporate Announcements</div>
+                        <div class="news-title">Desk Diaries for 2026</div>
+                        <div class="news-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">09.19.2025</div>
+                        <div class="news-category">Corporate Announcements</div>
+                        <div class="news-title">Wellness Month Is Here — Let's Recharge Together This October!</div>
+                        <div class="news-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">09.12.2025</div>
+                        <div class="news-category">Corporate Announcements</div>
+                        <div class="news-title">HKT Limited and HKT Trust (collectively "HKT") and PCCW Limited ("PCCW") — 2026 Annual Budget for the audit and non-audit services to be rendered in fiscal year ending 31 December 2026</div>
+                        <div class="news-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">09.25.2025</div>
+                        <div class="news-category">Activities</div>
+                        <div class="news-title">AD Self-Service system maintenance</div>
+                        <div class="news-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">09.25.2025</div>
+                        <div class="news-category">Activities</div>
+                        <div class="news-title">Annual Cybersecurity Awareness Training</div>
+                        <div class="news-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">09.12.2025</div>
+                        <div class="news-category">Activities</div>
+                        <div class="news-title">Update of Domain Name Application and Digital Certificate Application</div>
+                        <div class="news-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Content Blocks -->
+            <div class="bottom-blocks">
+                <div class="bottom-card">
+                    <h3>Quick Links</h3>
+                    <ul class="link-list">
+                        <li>Employee Handbook</li>
+                        <li>IT Support Portal</li>
+                        <li>HR Policies & Procedures</li>
+                        <li>Company Directory</li>
+                    </ul>
+                </div>
+                <div class="bottom-card">
+                    <h3>Company Contact Info</h3>
+                    <ul class="contact-list">
+                        <li>Main Office: (555) 123-4567</li>
+                        <li>IT Support: support@company.com</li>
+                        <li>HR Department: hr@company.com</li>
+                        <li>General Inquiries: info@company.com</li>
+                    </ul>
+                </div>
+                <div class="bottom-card">
+                    <h3>Emergency Contacts</h3>
+                    <ul class="contact-list">
+                        <li>Security: (555) 911-0000</li>
+                        <li>Facilities: (555) 911-0001</li>
+                        <li>IT Emergency: (555) 911-0002</li>
+                        <li>HR Emergency: (555) 911-0003</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="sidebar-right">
+            <div class="widget">
+                <h3>Employee Corner</h3>
+                <div class="employee-links">
+                    <div class="employee-link">
+                        <i class="fas fa-home" style="color: #FF6B35;"></i>
+                        <span>Happy Work</span>
+                    </div>
+                    <div class="employee-link">
+                        <i class="fas fa-map-marker-alt" style="color: #4A90E2;"></i>
+                        <span>Work Comfort</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3>Quick Reference</h3>
+                <div class="quick-reference">
+                    <i class="fas fa-home"></i>
+                    <i class="fas fa-file-alt"></i>
+                    <i class="fas fa-th"></i>
+                    <i class="fas fa-folder"></i>
+                    <i class="fas fa-envelope"></i>
+                    <i class="fas fa-cog"></i>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3>System Status</h3>
+                <div class="status-indicator">
+                    <div class="status-circle">
+                        <div class="status-progress"></div>
+                        <span class="status-percentage">84%</span>
+                    </div>
+                    <div class="status-labels">
+                        <div class="status-label">
+                            <span class="status-dot red"></span>
+                            <span>System</span>
+                        </div>
+                        <div class="status-label">
+                            <span class="status-dot blue"></span>
+                            <span>Database</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
 
     <script src="script.js"></script>
 </body>

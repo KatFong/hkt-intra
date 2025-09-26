@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKT 內網 API 測試套件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .api-section {
+            margin-bottom: 40px;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .api-header {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .api-header h2 {
+            color: #4A90E2;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .api-header .endpoint {
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #495057;
+        }
+        
+        .api-controls {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #357ABD;
+            transform: translateY(-1px);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .category-btn {
+            background: #e9ecef;
+            color: #495057;
+            border: 1px solid #ced4da;
+        }
+        
+        .category-btn.active {
+            background: #4A90E2;
+            color: white;
+        }
+        
+        .result-area {
+            padding: 20px;
+        }
+        
+        .result {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        
+        .success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        
+        .loading {
+            background: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+        
+        .data-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .data-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.2s ease;
+        }
+        
+        .data-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .data-card h3 {
+            color: #4A90E2;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .data-card .meta {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .data-card .category {
+            background: #e9ecef;
+            color: #495057;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+        
+        .data-card .date {
+            color: #4A90E2;
+            font-weight: 600;
+        }
+        
+        .data-card .content {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        
+        .debug-info {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #495057;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-success { background: #28a745; }
+        .status-error { background: #dc3545; }
+        .status-loading { background: #ffc107; }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card p {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 HKT 內網 API 測試套件</h1>
+            <p>測試所有 API 端點和數據結構</p>
+        </div>
+        
+        <div class="content">
+            <!-- 統計信息 -->
+            <div class="stats">
+                <div class="stat-card">
+                    <h3 id="total-apis">0</h3>
+                    <p>API 端點</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="successful-tests">0</h3>
+                    <p>成功測試</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="total-data">0</h3>
+                    <p>數據項目</p>
+                </div>
+            </div>
+            
+            <!-- 部門 API -->
+            <div class="api-section">
+                <div class="api-header">
+                    <h2>🏢 部門 API</h2>
+                    <div class="endpoint">http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/departments</div>
+                </div>
+                <div class="api-controls">
+                    <button onclick="testDepartmentsAPI()" id="deptBtn">測試部門 API</button>
+                    <button onclick="clearResults('dept')">清除結果</button>
+                </div>
+                <div class="result-area">
+                    <div id="dept-result" class="result" style="display: none;"></div>
+                    <div id="dept-display" class="data-display" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <!-- 新聞文章 API -->
+            <div class="api-section">
+                <div class="api-header">
+                    <h2>📰 新聞文章 API</h2>
+                    <div class="endpoint">http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/news-articles/</div>
+                </div>
+                <div class="api-controls">
+                    <div class="button-group">
+                        <button class="category-btn active" onclick="testNewsAPI('all')">全部新聞</button>
+                        <button class="category-btn" onclick="testNewsAPI('corporate-announcements')">企業公告</button>
+                        <button class="category-btn" onclick="testNewsAPI('bu')">業務單位</button>
+                        <button class="category-btn" onclick="testNewsAPI('media-releases')">媒體發布</button>
+                        <button class="category-btn" onclick="testNewsAPI('others')">其他</button>
+                    </div>
+                    <button onclick="clearResults('news')">清除結果</button>
+                </div>
+                <div class="result-area">
+                    <div id="news-result" class="result" style="display: none;"></div>
+                    <div id="news-display" class="data-display" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <!-- 圖片輪播 API -->
+            <div class="api-section">
+                <div class="api-header">
+                    <h2>🖼️ 圖片輪播 API</h2>
+                    <div class="endpoint">http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/image-sliders</div>
+                </div>
+                <div class="api-controls">
+                    <button onclick="testImageSliderAPI()" id="sliderBtn">測試圖片輪播 API</button>
+                    <button onclick="clearResults('slider')">清除結果</button>
+                </div>
+                <div class="result-area">
+                    <div id="slider-result" class="result" style="display: none;"></div>
+                    <div id="slider-display" class="data-display" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <!-- 調試信息 -->
+            <div class="debug-info" id="debug-info">
+                點擊上方按鈕開始測試 API...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let testStats = {
+            totalAPIs: 3,
+            successfulTests: 0,
+            totalDataItems: 0
+        };
+
+        // 更新統計信息
+        function updateStats() {
+            document.getElementById('total-apis').textContent = testStats.totalAPIs;
+            document.getElementById('successful-tests').textContent = testStats.successfulTests;
+            document.getElementById('total-data').textContent = testStats.totalDataItems;
+        }
+
+        // 測試部門 API
+        async function testDepartmentsAPI() {
+            const resultDiv = document.getElementById('dept-result');
+            const displayDiv = document.getElementById('dept-display');
+            const debugDiv = document.getElementById('debug-info');
+            const btn = document.getElementById('deptBtn');
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '正在連接部門 API...';
+            
+            btn.disabled = true;
+            btn.textContent = '連接中...';
+            
+            debugDiv.textContent = '開始測試部門 API...\n端點: http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/departments';
+
+            try {
+                const startTime = Date.now();
+                const response = await fetch('http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/departments');
+                const endTime = Date.now();
+                const responseTime = endTime - startTime;
+                
+                debugDiv.textContent += `\n響應時間: ${responseTime}ms\nHTTP 狀態: ${response.status}`;
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                testStats.successfulTests++;
+                testStats.totalDataItems += Array.isArray(data) ? data.length : 1;
+                
+                resultDiv.className = 'result success';
+                resultDiv.textContent = `✅ 部門 API 連接成功！\n\n響應時間: ${responseTime}ms\n數據類型: ${Array.isArray(data) ? 'Array' : typeof data}\n數據長度: ${Array.isArray(data) ? data.length : 'N/A'}\n\n原始數據:\n${JSON.stringify(data, null, 2)}`;
+                
+                debugDiv.textContent += `\n✅ 部門 API 測試成功\n數據長度: ${Array.isArray(data) ? data.length : 'N/A'}`;
+                
+                displayDepartments(data);
+                updateStats();
+                
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ 部門 API 連接失敗\n\n錯誤信息: ${error.message}`;
+                
+                debugDiv.textContent += `\n❌ 部門 API 測試失敗\n錯誤: ${error.message}`;
+                
+                displayDiv.style.display = 'none';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '測試部門 API';
+            }
+        }
+
+        // 顯示部門數據
+        function displayDepartments(departments) {
+            const displayDiv = document.getElementById('dept-display');
+            displayDiv.style.display = 'block';
+            
+            if (!Array.isArray(departments) || departments.length === 0) {
+                displayDiv.innerHTML = '<div class="data-card"><h3>暫無部門數據</h3></div>';
+                return;
+            }
+            
+            displayDiv.innerHTML = departments.map(dept => {
+                const name = dept.department_name || dept.name || dept.title || '未命名部門';
+                const id = dept.id || dept.ID || '';
+                const description = dept.description || dept.desc || '無描述';
+                
+                return `
+                    <div class="data-card">
+                        <h3>${name}</h3>
+                        <div class="meta">
+                            <span class="date">ID: ${id}</span>
+                        </div>
+                        <div class="content">${description}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 測試新聞 API
+        async function testNewsAPI(category) {
+            // 更新按鈕狀態
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            const resultDiv = document.getElementById('news-result');
+            const displayDiv = document.getElementById('news-display');
+            const debugDiv = document.getElementById('debug-info');
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = `正在載入 ${category === 'all' ? '全部' : category} 新聞...`;
+            
+            debugDiv.textContent = `開始測試新聞 API...\n分類: ${category}`;
+
+            try {
+                const startTime = Date.now();
+                let url = 'http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/news-articles/';
+                
+                if (category !== 'all') {
+                    url += `?category_slug=${category}`;
+                }
+                
+                debugDiv.textContent += `\nAPI 端點: ${url}`;
+                
+                const response = await fetch(url);
+                const endTime = Date.now();
+                const responseTime = endTime - startTime;
+                
+                debugDiv.textContent += `\n響應時間: ${responseTime}ms\nHTTP 狀態: ${response.status}`;
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                testStats.successfulTests++;
+                testStats.totalDataItems += Array.isArray(data) ? data.length : 1;
+                
+                resultDiv.className = 'result success';
+                resultDiv.textContent = `✅ 新聞 API 連接成功！\n\n分類: ${category}\n響應時間: ${responseTime}ms\n數據類型: ${Array.isArray(data) ? 'Array' : typeof data}\n數據長度: ${Array.isArray(data) ? data.length : 'N/A'}\n\n原始數據:\n${JSON.stringify(data, null, 2)}`;
+                
+                debugDiv.textContent += `\n✅ 新聞 API 測試成功\n數據長度: ${Array.isArray(data) ? data.length : 'N/A'}`;
+                
+                displayNews(data);
+                updateStats();
+                
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ 新聞 API 連接失敗\n\n錯誤信息: ${error.message}`;
+                
+                debugDiv.textContent += `\n❌ 新聞 API 測試失敗\n錯誤: ${error.message}`;
+                
+                displayDiv.style.display = 'none';
+            }
+        }
+
+        // 顯示新聞數據
+        function displayNews(newsItems) {
+            const displayDiv = document.getElementById('news-display');
+            displayDiv.style.display = 'block';
+            
+            if (!Array.isArray(newsItems) || newsItems.length === 0) {
+                displayDiv.innerHTML = '<div class="data-card"><h3>暫無新聞數據</h3></div>';
+                return;
+            }
+            
+            displayDiv.innerHTML = newsItems.map(article => {
+                const title = article.title || article.post_title || '無標題';
+                const date = article.date || article.post_date || article.created_date || '未知日期';
+                const category = article.category || article.category_name || article.category_slug || '未分類';
+                const content = article.content || article.post_content || article.excerpt || '無內容';
+                
+                return `
+                    <div class="data-card">
+                        <h3>${title}</h3>
+                        <div class="meta">
+                            <span class="date">${date}</span>
+                            <span class="category">${category}</span>
+                        </div>
+                        <div class="content">${content.length > 100 ? content.substring(0, 100) + '...' : content}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 測試圖片輪播 API
+        async function testImageSliderAPI() {
+            const resultDiv = document.getElementById('slider-result');
+            const displayDiv = document.getElementById('slider-display');
+            const debugDiv = document.getElementById('debug-info');
+            const btn = document.getElementById('sliderBtn');
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '正在載入圖片輪播 API...';
+            
+            btn.disabled = true;
+            btn.textContent = '載入中...';
+            
+            debugDiv.textContent = '開始測試圖片輪播 API...\n端點: http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/image-sliders';
+
+            try {
+                const startTime = Date.now();
+                const response = await fetch('http://10.171.208.81/wordpress/wp-json/hkt-pods-api/v1/image-sliders');
+                const endTime = Date.now();
+                const responseTime = endTime - startTime;
+                
+                debugDiv.textContent += `\n響應時間: ${responseTime}ms\nHTTP 狀態: ${response.status}`;
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                testStats.successfulTests++;
+                testStats.totalDataItems += Array.isArray(data) ? data.length : 1;
+                
+                resultDiv.className = 'result success';
+                resultDiv.textContent = `✅ 圖片輪播 API 連接成功！\n\n響應時間: ${responseTime}ms\n數據類型: ${Array.isArray(data) ? 'Array' : typeof data}\n數據長度: ${Array.isArray(data) ? data.length : 'N/A'}\n\n原始數據:\n${JSON.stringify(data, null, 2)}`;
+                
+                debugDiv.textContent += `\n✅ 圖片輪播 API 測試成功\n數據長度: ${Array.isArray(data) ? data.length : 'N/A'}`;
+                
+                displayImageSliders(data);
+                updateStats();
+                
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ 圖片輪播 API 連接失敗\n\n錯誤信息: ${error.message}`;
+                
+                debugDiv.textContent += `\n❌ 圖片輪播 API 測試失敗\n錯誤: ${error.message}`;
+                
+                displayDiv.style.display = 'none';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '測試圖片輪播 API';
+            }
+        }
+
+        // 顯示圖片輪播數據
+        function displayImageSliders(sliders) {
+            const displayDiv = document.getElementById('slider-display');
+            displayDiv.style.display = 'block';
+            
+            if (!Array.isArray(sliders) || sliders.length === 0) {
+                displayDiv.innerHTML = '<div class="data-card"><h3>暫無圖片輪播數據</h3></div>';
+                return;
+            }
+            
+            displayDiv.innerHTML = sliders.map(slider => {
+                const title = slider.title || slider.name || '無標題';
+                const image = slider.image || slider.image_url || slider.url || '';
+                const description = slider.description || slider.caption || '無描述';
+                
+                return `
+                    <div class="data-card">
+                        <h3>${title}</h3>
+                        ${image ? `<img src="${image}" alt="${title}" style="max-width: 100%; height: auto; border-radius: 5px; margin-bottom: 10px;" onerror="this.style.display='none'">` : '<div style="height: 100px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #999; border-radius: 5px; margin-bottom: 10px;">無圖片</div>'}
+                        <div class="content">${description}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 清除結果
+        function clearResults(type) {
+            document.getElementById(`${type}-result`).style.display = 'none';
+            document.getElementById(`${type}-display`).style.display = 'none';
+        }
+
+        // 初始化
+        updateStats();
+    </script>
+</body>
+</html>
