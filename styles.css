@@ -431,13 +431,14 @@ a.nav-link.dropdown-toggle:hover:not(.active) {
 
 .slider-controls {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: space-between;
     padding: 0 1rem;
     z-index: 3;
+    gap: 1rem;
 }
 
 .slider-btn {
@@ -466,7 +467,7 @@ a.nav-link.dropdown-toggle:hover:not(.active) {
 
 .slider-dots {
     position: absolute;
-    bottom: 1rem;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -1037,6 +1038,7 @@ a.nav-link.dropdown-toggle:hover:not(.active) {
     position: relative;
     display: flex;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .department-link:hover {
@@ -1870,7 +1872,7 @@ a.nav-link.dropdown-toggle:hover:not(.active) {
 
 .image-slider-widget .slider-dots {
     position: absolute;
-    bottom: -60px;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
