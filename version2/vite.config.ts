@@ -22,3 +22,8 @@ export default defineConfig(({mode}) => {
     },
   };
 });
+
+export default defineConfig({
+  base: '/hkt-intra/version2/',
+  plugins: [react()],
+})
