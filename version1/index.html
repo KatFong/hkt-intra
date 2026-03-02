@@ -1,1 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCCW HKT Intranet</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-white text-slate-800 font-sans selection:bg-[#00A4E0]/20 pb-20">
 
+    <!-- === Header === -->
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-100 shadow-sm">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between gap-6">
+            <div onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); document.getElementById('searchInput').value='';" class="flex items-center gap-2 cursor-pointer shrink-0 group" title="Back to Home">
+                <div class="flex items-center gap-1.5 select-none">
+                    <span class="text-2xl font-black text-[#00338D] tracking-tighter">PCCW</span>
+                    <span class="text-2xl font-black text-[#00A4E0] tracking-tighter">HKT</span>
+                </div>
+                <div class="h-4 w-[1px] bg-slate-300 mx-1 hidden sm:block"></div>
+                <span class="hidden sm:block text-[11px] font-bold tracking-[0.2em] text-orange-500 uppercase">
+                    Intranet
+                </span>
+            </div>
+
+            <nav class="hidden xl:flex items-center gap-4 text-[13px] font-bold text-slate-600">
+                <button class="flex items-center gap-1.5 hover:text-[#00A4E0] transition-colors py-2 px-3 group">
+                    Department <i data-lucide="chevron-right" class="w-3.5 h-3.5 rotate-90 text-slate-400 group-hover:text-[#00A4E0]"></i>
+                </button>
+                <a href="#policies" class="flex items-center gap-1.5 hover:text-[#00A4E0] transition-colors py-2 px-3">
+                    Group policies & procedures
+                </a>
+                <a href="#connect" class="flex items-center gap-1.5 hover:text-[#00A4E0] transition-colors py-2 px-3">
+                    Connect
+                </a>
+                <a href="#news" class="flex items-center gap-1.5 hover:text-[#00A4E0] transition-colors py-2 px-3">
+                    News & announcements
+                </a>
+            </nav>
+
+            <div class="hidden md:flex relative max-w-xs w-full ml-auto">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+                </div>
+                <input
+                    id="searchInput"
+                    type="text"
+                    placeholder="Search..."
+                    class="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-full bg-slate-50 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00A4E0]/30 focus:bg-white text-[13px] transition-all"
+                />
+            </div>
+        </div>
+    </header>
+
+    <main class="py-8 sm:py-10 flex flex-col gap-10 sm:gap-14">
+        
+        <!-- === 第一區塊：Bento Grid Hero Section (套用全新 React Component 樣式) === -->
+        <section class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-4 h-auto lg:h-[400px]">
+                
+                <!-- Main Banner: Full width on Tablet, 2x2 on Desktop -->
+                <div class="md:col-span-2 lg:col-span-2 lg:row-span-2 h-[300px] md:h-[250px] lg:h-full relative overflow-hidden rounded-[24px] shadow-lg group bg-gradient-to-br from-[#00a099] to-[#005955] cursor-pointer animate-slide-up-fade">
+                    <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                    
+                    <!-- Category Tab - Top Right -->
+                    <div class="absolute top-6 right-6 z-20">
+                        <button class="bg-white/20 hover:bg-white/40 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/30 transition-colors">
+                            BU/Functional Unit Specific News
+                        </button>
+                    </div>
+
+                    <!-- Title and Description - Bottom -->
+                    <div class="absolute bottom-0 left-0 w-full px-6 md:px-12 lg:px-20 py-6 md:py-8 lg:py-10 text-white z-20">
+                        <h2 class="text-xl md:text-2xl lg:text-4xl font-bold leading-tight mb-2 drop-shadow-lg">The HotSpot BNK Soft Opening</h2>
+                    </div>
+
+                    <!-- Custom Pagination Dots -->
+                    <div class="absolute top-6 left-6 flex space-x-2 z-20">
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white ring-1 ring-white ring-offset-2 ring-offset-transparent scale-110"></button>
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white/50 hover:bg-white/80"></button>
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white/50 hover:bg-white/80"></button>
+                    </div>
+
+                    <!-- Navigation Arrows -->
+                    <button class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-2 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-2 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <!-- Sub Banner 1: Corporate Announcements -->
+                <div class="h-[200px] md:h-[180px] lg:h-full relative overflow-hidden rounded-[24px] shadow-md group cursor-pointer bg-[#5fb2e3] animate-slide-up-fade">
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/grid-noise.png')] pointer-events-none"></div>
+                    <div class="absolute inset-0 flex flex-col justify-between p-6">
+                        <div class="flex justify-end relative z-10">
+                            <button class="bg-white/20 hover:bg-white/30 text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full border border-white/20 transition-colors">
+                                Corporate Announcements
+                            </button>
+                        </div>
+                        <div class="relative z-10 mb-2">
+                            <h3 class="text-white text-xl font-bold leading-snug line-clamp-4">123chloe testing</h3>
+                        </div>
+                    </div>
+                    <!-- Custom Pagination Dots -->
+                    <div class="absolute top-5 left-5 flex space-x-1.5 z-10">
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white ring-1 ring-white ring-offset-1 ring-offset-transparent"></button>
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white/40"></button>
+                    </div>
+                </div>
+
+                <!-- Sub Banner 2: Fixed SEA Banner -->
+                <div class="h-[200px] md:h-[180px] lg:h-full relative overflow-hidden rounded-[24px] shadow-md group cursor-pointer bg-gradient-to-br from-[#00a099] to-[#005955] animate-slide-up-fade">
+                    <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
+                    <div class="absolute top-4 right-4 z-20">
+                        <button class="bg-white/20 hover:bg-white/40 backdrop-blur-md text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full border border-white/30 transition-colors">
+                            Award
+                        </button>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full px-6 py-5 text-white z-20">
+                        <h3 class="text-lg font-bold leading-snug line-clamp-3 drop-shadow-md">Service Excellence Awards 2.0<br/>卓越服務獎勵計劃 2.0</h3>
+                    </div>
+                    <!-- Custom Pagination Dots -->
+                    <div class="absolute top-5 left-5 flex space-x-1.5 z-20">
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white ring-1 ring-white ring-offset-1 ring-offset-transparent scale-110"></button>
+                    </div>
+                </div>
+
+                <!-- Sub Banner 3: Media Releases -->
+                <div class="h-[200px] md:h-[180px] lg:h-full relative overflow-hidden rounded-[24px] shadow-md group cursor-pointer bg-[#fdb913] animate-slide-up-fade">
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/grid-noise.png')] pointer-events-none"></div>
+                    <div class="absolute inset-0 flex flex-col justify-between p-6">
+                        <div class="flex justify-end relative z-10">
+                            <button class="bg-white/20 hover:bg-white/30 text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full border border-white/20 transition-colors">
+                                Media Releases
+                            </button>
+                        </div>
+                        <div class="relative z-10 mb-2">
+                            <h3 class="text-white text-lg font-bold leading-snug line-clamp-4">The Club launches "Reward Your Moments" campaign, offering over HK$20 million worth of Clubpoints and...</h3>
+                        </div>
+                    </div>
+                    <!-- Custom Pagination Dots -->
+                    <div class="absolute top-5 left-5 flex space-x-1.5 z-10">
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white ring-1 ring-white ring-offset-1 ring-offset-transparent"></button>
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white/40"></button>
+                    </div>
+                </div>
+
+                <!-- Sub Banner 4: Staff Offer -->
+                <div class="h-[200px] md:h-[180px] lg:h-full relative overflow-hidden rounded-[24px] shadow-md group cursor-pointer bg-[#f58220] animate-slide-up-fade">
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/grid-noise.png')] pointer-events-none"></div>
+                    <div class="absolute inset-0 flex flex-col justify-between p-6">
+                        <div class="flex justify-end relative z-10">
+                            <button class="bg-white/20 hover:bg-white/30 text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full border border-white/20 transition-colors">
+                                Staff Offer
+                            </button>
+                        </div>
+                        <div class="relative z-10 mb-2">
+                            <h3 class="text-white text-xl font-bold leading-snug line-clamp-4">Staff Offer - Mira Dining Chinese New Year Cake</h3>
+                        </div>
+                    </div>
+                    <!-- Custom Pagination Dots -->
+                    <div class="absolute top-5 left-5 flex space-x-1.5 z-10">
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white ring-1 ring-white ring-offset-1 ring-offset-transparent"></button>
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white/40"></button>
+                        <button class="w-1.5 h-1.5 rounded-full transition-all duration-300 bg-white/40"></button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- === 第二區塊：無縫相連的一排 Tools Section (Full-width 全寬底色) === -->
+        <section class="relative w-full bg-[#F0F4F8] border-y border-slate-200/80 py-10 sm:py-12">
+            
+            <div class="absolute top-0 right-0 w-96 h-96 bg-[#00A4E0]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                
+                <div class="flex items-center gap-3 mb-6 px-1">
+                    <div class="bg-[#00A4E0]/15 p-2 rounded-xl flex items-center justify-center shadow-inner border border-[#00A4E0]/20">
+                        <i data-lucide="layout-grid" class="w-6 h-6 text-[#00A4E0]" stroke-width="2.5"></i>
+                    </div>
+                    <h3 class="text-[20px] sm:text-[22px] font-black text-slate-900 tracking-tight uppercase drop-shadow-sm">
+                        Tools & Resources
+                    </h3>
+                </div>
+
+                <div class="flex overflow-x-auto hide-scrollbar rounded-[1.5rem] shadow-[0_12px_40px_rgba(0,51,141,0.15)] ring-1 ring-black/5 relative z-10">
+                    <div class="flex w-full min-w-[700px] lg:min-w-0 h-[140px] sm:h-[150px]">
+                        
+                        <!-- Tool 1 -->
+                        <a href="#lis" class="group relative flex-1 flex flex-col items-center justify-center bg-[#001D4A] text-white transition-all duration-500 ease-out overflow-hidden border-r border-white/20">
+                            <div class="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:left-[100%] transition-all duration-700 ease-in-out z-0 pointer-events-none"></div>
+                            <div class="absolute inset-0 bg-black/15 group-hover:bg-transparent transition-colors duration-500 z-0 pointer-events-none"></div>
+                            <div class="w-[48px] h-[48px] sm:w-[54px] sm:h-[54px] rounded-full border border-white/50 flex items-center justify-center mb-3 group-hover:-translate-y-2 group-hover:bg-white group-hover:text-slate-900 group-hover:shadow-[0_10px_25px_rgba(255,255,255,0.4)] group-hover:scale-110 group-hover:border-transparent transition-all duration-400 shadow-inner z-10">
+                                <i data-lucide="network" class="w-6 h-6" stroke-width="2"></i>
+                            </div>
+                            <span class="font-bold text-[14px] sm:text-[15px] text-center leading-snug drop-shadow-md px-2 z-10 group-hover:-translate-y-1 transition-transform duration-400">
+                                LIS/FIN/HRS
+                            </span>
+                            <div class="absolute bottom-0 left-0 w-full h-1.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-10"></div>
+                        </a>
+
+                        <!-- Tool 2 -->
+                        <a href="#sap" class="group relative flex-1 flex flex-col items-center justify-center bg-[#00338D] text-white transition-all duration-500 ease-out overflow-hidden border-r border-white/20">
+                            <div class="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:left-[100%] transition-all duration-700 ease-in-out z-0 pointer-events-none"></div>
+                            <div class="absolute inset-0 bg-black/15 group-hover:bg-transparent transition-colors duration-500 z-0 pointer-events-none"></div>
+                            <div class="w-[48px] h-[48px] sm:w-[54px] sm:h-[54px] rounded-full border border-white/50 flex items-center justify-center mb-3 group-hover:-translate-y-2 group-hover:bg-white group-hover:text-slate-900 group-hover:shadow-[0_10px_25px_rgba(255,255,255,0.4)] group-hover:scale-110 group-hover:border-transparent transition-all duration-400 shadow-inner z-10">
+                                <i data-lucide="bar-chart-2" class="w-6 h-6" stroke-width="2"></i>
+                            </div>
+                            <span class="font-bold text-[14px] sm:text-[15px] text-center leading-snug drop-shadow-md px-2 z-10 group-hover:-translate-y-1 transition-transform duration-400">
+                                Service Application Portal
+                            </span>
+                            <div class="absolute bottom-0 left-0 w-full h-1.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-10"></div>
+                        </a>
+
+                        <!-- Tool 3 -->
+                        <a href="#pwd" class="group relative flex-1 flex flex-col items-center justify-center bg-[#00338D] text-white transition-all duration-500 ease-out overflow-hidden border-r border-white/20">
+                            <div class="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:left-[100%] transition-all duration-700 ease-in-out z-0 pointer-events-none"></div>
+                            <div class="absolute inset-0 bg-black/15 group-hover:bg-transparent transition-colors duration-500 z-0 pointer-events-none"></div>
+                            <div class="w-[48px] h-[48px] sm:w-[54px] sm:h-[54px] rounded-full border border-white/50 flex items-center justify-center mb-3 group-hover:-translate-y-2 group-hover:bg-white group-hover:text-slate-900 group-hover:shadow-[0_10px_25px_rgba(255,255,255,0.4)] group-hover:scale-110 group-hover:border-transparent transition-all duration-400 shadow-inner z-10">
+                                <i data-lucide="lock" class="w-6 h-6" stroke-width="2"></i>
+                            </div>
+                            <span class="font-bold text-[14px] sm:text-[15px] text-center leading-snug drop-shadow-md px-2 z-10 group-hover:-translate-y-1 transition-transform duration-400">
+                                Password Reset
+                            </span>
+                            <div class="absolute bottom-0 left-0 w-full h-1.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-10"></div>
+                        </a>
+
+                        <!-- Tool 4 -->
+                        <a href="#forms" class="group relative flex-1 flex flex-col items-center justify-center bg-[#00338D] text-white transition-all duration-500 ease-out overflow-hidden border-r border-white/20">
+                            <div class="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:left-[100%] transition-all duration-700 ease-in-out z-0 pointer-events-none"></div>
+                            <div class="absolute inset-0 bg-black/15 group-hover:bg-transparent transition-colors duration-500 z-0 pointer-events-none"></div>
+                            <div class="w-[48px] h-[48px] sm:w-[54px] sm:h-[54px] rounded-full border border-white/50 flex items-center justify-center mb-3 group-hover:-translate-y-2 group-hover:bg-white group-hover:text-slate-900 group-hover:shadow-[0_10px_25px_rgba(255,255,255,0.4)] group-hover:scale-110 group-hover:border-transparent transition-all duration-400 shadow-inner z-10">
+                                <i data-lucide="file-text" class="w-6 h-6" stroke-width="2"></i>
+                            </div>
+                            <span class="font-bold text-[14px] sm:text-[15px] text-center leading-snug drop-shadow-md px-2 z-10 group-hover:-translate-y-1 transition-transform duration-400">
+                                Forms/ Templates
+                            </span>
+                            <div class="absolute bottom-0 left-0 w-full h-1.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-10"></div>
+                        </a>
+
+                        <!-- Tool 5 -->
+                        <a href="#askit" class="group relative flex-1 flex flex-col items-center justify-center bg-[#00A4E0] text-white transition-all duration-500 ease-out overflow-hidden">
+                            <div class="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:left-[100%] transition-all duration-700 ease-in-out z-0 pointer-events-none"></div>
+                            <div class="absolute inset-0 bg-black/15 group-hover:bg-transparent transition-colors duration-500 z-0 pointer-events-none"></div>
+                            <div class="w-[48px] h-[48px] sm:w-[54px] sm:h-[54px] rounded-full border border-white/50 flex items-center justify-center mb-3 group-hover:-translate-y-2 group-hover:bg-white group-hover:text-slate-900 group-hover:shadow-[0_10px_25px_rgba(255,255,255,0.4)] group-hover:scale-110 group-hover:border-transparent transition-all duration-400 shadow-inner z-10">
+                                <i data-lucide="help-circle" class="w-6 h-6" stroke-width="2"></i>
+                            </div>
+                            <span class="font-bold text-[14px] sm:text-[15px] text-center leading-snug drop-shadow-md px-2 z-10 group-hover:-translate-y-1 transition-transform duration-400">
+                                AskIT
+                            </span>
+                            <div class="absolute bottom-0 left-0 w-full h-1.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-10"></div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === 第三區塊：4 欄底部資訊 === -->
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+                
+                <!-- Column 1: Useful Resources -->
+                <div class="flex flex-col">
+                    <div class="mb-6 pb-3 border-b border-slate-100">
+                        <h3 class="font-extrabold text-slate-900 text-[20px] tracking-tight">Useful Resources</h3>
+                    </div>
+                    
+                    <ul class="space-y-1 relative">
+                        <!-- C1 L1 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-rose-100 text-rose-500">
+                                    <i data-lucide="book-open" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Daily News Monitoring Report</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="book-open" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Daily News Monitoring Report</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- C1 L2 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-amber-100 text-amber-500">
+                                    <i data-lucide="zap" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">IT Support</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="zap" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">IT Support</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- C1 L3 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-blue-100 text-[#00338D]">
+                                    <i data-lucide="database" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Facilities Management</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="database" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Facilities Management</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- C1 L4 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-emerald-100 text-emerald-500">
+                                    <i data-lucide="calendar" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Business Travel Information</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="calendar" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Business Travel Information</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- C1 L5 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-indigo-100 text-indigo-500">
+                                    <i data-lucide="mail" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Mailing Customer Guide</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="mail" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Mailing Customer Guide</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- C1 L6 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-red-100 text-red-500">
+                                    <i data-lucide="shield-alert" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Report Risk or Incident</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="shield-alert" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Report Risk or Incident</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Employee Support & Resources -->
+                <div class="flex flex-col">
+                    <div class="mb-6 pb-3 border-b border-slate-100">
+                        <h3 class="font-extrabold text-slate-900 text-[20px] tracking-tight">Employee Support & Resources</h3>
+                    </div>
+                    
+                    <ul class="space-y-1 relative">
+                        <!-- C2 L1 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-[#00A4E0]/15 text-[#00A4E0]">
+                                    <i data-lucide="users" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Staff Activities</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="users" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Staff Activities</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- C2 L2 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-purple-100 text-purple-500">
+                                    <i data-lucide="gift" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Staff Offers</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="gift" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Staff Offers</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- C2 L3 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-rose-100 text-rose-500">
+                                    <i data-lucide="heart-handshake" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Employee Assistance Programme (EAP)</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="heart-handshake" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Employee Assistance Programme (EAP)</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <!-- C2 L4: HIGHLIGHT (Credit Union) -->
+                        <li class="relative group/cu my-1.5 z-10">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 bg-gradient-to-r from-[#00A4E0]/10 via-[#00A4E0]/5 to-transparent border border-[#00A4E0]/20 shadow-sm">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-slate-100 text-slate-400">
+                                    <img src="data:image/png;base64,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" class="w-7 h-7 object-contain drop-shadow-sm" alt="Credit Union Logo">
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Credit Union</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        News & Join <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <!-- C2 L5: HIGHLIGHT (Wellbeing Community) -->
+                        <li class="relative group/cu my-1.5 z-10">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 bg-gradient-to-r from-[#00A4E0]/10 via-[#00A4E0]/5 to-transparent border border-[#00A4E0]/20 shadow-sm">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-teal-100 text-teal-500">
+                                    <i data-lucide="leaf" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-[#00338D]">Wellbeing Community</span>
+                                <div class="ml-auto flex items-center gap-1.5 px-2.5 py-1 bg-gradient-to-r from-[#F37021] to-[#FF8A40] text-white rounded-lg shadow-sm shrink-0">
+                                    <span class="relative flex h-2 w-2">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                                    </span>
+                                    <span class="text-[9px] font-black uppercase tracking-widest">Join Us</span>
+                                </div>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ring-2 ring-white/30">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="leaf" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Wellbeing Community</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Join Community <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <!-- C2 L6: HIGHLIGHT (Sports Team Community) -->
+                        <li class="relative group/cu my-1.5 z-10">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 bg-gradient-to-r from-[#00A4E0]/10 via-[#00A4E0]/5 to-transparent border border-[#00A4E0]/20 shadow-sm">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-[#F37021]/15 text-[#F37021]">
+                                    <i data-lucide="trophy" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-[#00338D]">Sports Team Community</span>
+                                <div class="ml-auto flex items-center gap-1.5 px-2.5 py-1 bg-gradient-to-r from-[#F37021] to-[#FF8A40] text-white rounded-lg shadow-sm shrink-0">
+                                    <span class="relative flex h-2 w-2">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                                    </span>
+                                    <span class="text-[9px] font-black uppercase tracking-widest">Join Us</span>
+                                </div>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ring-2 ring-white/30">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="trophy" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Sports Team Community</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Join Community <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <!-- C2 L7 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-amber-100 text-amber-500">
+                                    <i data-lucide="award" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">SEA 2.0</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="award" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">SEA 2.0</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!-- Column 3: Safety & Community -->
+                <div class="flex flex-col">
+                    <div class="mb-6 pb-3 hidden lg:block border-b border-transparent">
+                        <h3 class="font-extrabold text-transparent text-[20px] tracking-tight select-none">&nbsp;</h3>
+                    </div>
+                    
+                    <ul class="space-y-1 relative">
+                        <!-- C3 L1 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-emerald-100 text-emerald-600">
+                                    <i data-lucide="globe" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Sustainability & Community</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="globe" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Sustainability & Community</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- C3 L2 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-cyan-100 text-cyan-600">
+                                    <i data-lucide="shield-check" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Occupational Safety & Health</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="shield-check" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Occupational Safety & Health</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- C3 L3 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-indigo-100 text-indigo-500">
+                                    <i data-lucide="briefcase" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">Work Arrangement Notice (HK)</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="briefcase" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">Work Arrangement Notice (HK)</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- C3 L4 -->
+                        <li class="relative group/cu my-1.5 ">
+                            <a href="#" class="flex items-center w-full gap-3.5 py-2 px-3 -mx-3 rounded-xl opacity-100 group-hover/cu:opacity-0 transition-all duration-300 hover:bg-slate-50">
+                                <div class="shrink-0 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 bg-blue-100 text-[#00338D]">
+                                    <i data-lucide="hand-heart" class="w-5 h-5" stroke-width="2.5"></i>
+                                </div>
+                                <span class="text-[15px] font-bold leading-snug text-slate-800">HR Support</span>
+                            </a>
+                            <a href="#" class="absolute left-[-16px] right-[-16px] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gradient-to-r from-[#004A99] to-[#0099DD] p-3 text-white shadow-[0_15px_30px_-6px_rgba(0,164,224,0.5)] opacity-0 group-hover/cu:opacity-100 pointer-events-none group-hover/cu:pointer-events-auto transition-all duration-300 z-50 scale-95 group-hover/cu:scale-100 flex items-center gap-4 ">
+                                <div class="bg-white w-12 h-12 rounded-[0.85rem] flex items-center justify-center shrink-0 shadow-inner">
+                                    <i data-lucide="hand-heart" class="w-6 h-6 text-[#004A99]"></i>
+                                </div>
+                                <div class="flex flex-col justify-center min-w-0 pr-2">
+                                    <h4 class="font-black text-[15px] sm:text-base leading-tight mb-0.5 line-clamp-2">HR Support</h4>
+                                    <p class="text-white/90 text-[10px] font-bold flex items-center gap-1 uppercase tracking-widest mt-0.5 shrink-0">
+                                        Explore <i data-lucide="chevron-right" class="w-3 h-3 group-hover/cu:translate-x-1 transition-transform"></i>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!-- Column 4: Viva Engage -->
+                <div class="flex flex-col bg-slate-50/50 rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] h-fit">
+                    <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
+                        <h3 class="font-black text-slate-900 text-xl tracking-tight flex items-center gap-2">
+                            <i data-lucide="message-circle" class="w-6 h-6 text-[#00A4E0]"></i>
+                            Viva Engage
+                        </h3>
+                        <a href="#" class="text-xs font-bold text-[#00A4E0] hover:underline">Go to feed</a>
+                    </div>
+
+                    <div class="flex flex-col gap-5 overflow-y-auto hide-scrollbar max-h-[500px]">
+                        <!-- Post 1 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                            <div class="flex items-center gap-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Gail Wright" class="w-10 h-10 rounded-full object-cover border border-slate-100" />
+                                <div>
+                                    <h4 class="text-[14px] font-bold text-slate-900 leading-tight">Gail Wright</h4>
+                                    <span class="text-[11px] font-semibold text-slate-400">May 22</span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-[13px] text-slate-700 font-medium leading-relaxed mb-3">
+                                Excited to announce the launch of our new sustainability initiative! Join us this Friday for the kickoff event. 🌱
+                            </p>
+
+                            <div class="w-full aspect-[16/10] rounded-xl overflow-hidden mb-3 border border-slate-100">
+                                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80" alt="Post Attachment" class="w-full h-full object-cover" />
+                            </div>
+                        </div>
+
+                        <!-- Post 2 -->
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                            <div class="flex items-center gap-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Annie Kim" class="w-10 h-10 rounded-full object-cover border border-slate-100" />
+                                <div>
+                                    <h4 class="text-[14px] font-bold text-slate-900 leading-tight">Annie Kim</h4>
+                                    <span class="text-[11px] font-semibold text-slate-400">May 22</span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-[13px] text-slate-700 font-medium leading-relaxed mb-3">
+                                Just finished the Q3 Town Hall presentation. Great job to everyone involved in hitting our milestones! Let's keep the momentum going into Q4. 🚀
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 底部版權與資訊連結 -->
+    <footer class="bg-white border-t border-slate-100 mt-10 py-8">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-5">
+            
+            <!-- 左側：版權宣告 -->
+            <div class="text-[13px] font-bold text-slate-400 text-center md:text-left">
+                © PCCW-HKT DataCom Services Limited 2026. All Rights Reserved.​
+            </div>
+            
+            <!-- 右側：網站資訊與政策連結 -->
+            <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-[13px] font-bold text-slate-500">
+                <a href="#" class="hover:text-[#00A4E0] transition-colors">Site Map</a>
+                <span class="text-slate-300 hidden sm:inline">|</span>
+                <a href="#" class="hover:text-[#00A4E0] transition-colors">Webmaster Information</a>
+                <span class="text-slate-300 hidden sm:inline">|</span>
+                <a href="#" class="hover:text-[#00A4E0] transition-colors">Privacy Statement</a>
+                <span class="text-slate-300 hidden sm:inline">|</span>
+                <a href="#" class="hover:text-[#00A4E0] transition-colors">Terms of Use</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
